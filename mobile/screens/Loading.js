@@ -30,9 +30,8 @@ export default function Loading() {
     };
   }, [currentImage]);
 
-
   useEffect(() => {
-    fetch('http://192.168.1.6:8000/')
+    fetch('http://192.168.1.10:8000/')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -58,7 +57,6 @@ export default function Loading() {
           style={styles.gradient}
         />
         <Description></Description>
-        <Button title={'Join us'} onPress={()=>{}} style={styles.btn} ></Button>
       </View>
     </View>
   );

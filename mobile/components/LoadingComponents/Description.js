@@ -2,8 +2,21 @@ import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import React from 'react';
 import Logo from '../../assets/images/svgImages/nike_logo.svg';
 import Button from './Button';
+import { useEffect,useState} from 'react';
 
 export default function Description() {
+
+  const [IsLoggedIn,setIsLoggedIn]=useState(false);
+  useEffect(()=>{
+
+   const timer=setTimeout(()=>{
+    setIsLoggedIn(true);
+    },5000)
+    return ()=>{
+      clearTimeout(timer);
+    }
+  },[])
+
   return (
     <View style={styles.container}>
       <Logo height={80} width={80}></Logo>
@@ -12,8 +25,11 @@ export default function Description() {
         sport.
       </Text>
       <View style={styles.btnContainer}>
-        <Button title="Join Us" onPress={() => {}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
-        <Button title="Sign In" onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
+        {!IsLoggedIn&&<Button title="Sign In" onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>}
+        {IsLoggedIn&&(<>
+          <Button title="Login" onPress={() => {}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
+          <Button title="Sign In" onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
+        </>)}
       </View>
     </View>
   );
@@ -25,12 +41,13 @@ const styles = StyleSheet.create({
     width: '87%',
     position: 'absolute',
     bottom: 0,
-    justifyContent: 'center',
+    justifyContent:"flex-end",
     paddingHorizontal: 15,
+    paddingVertical:20
   },
   txt: {
     color: 'white',
-    fontSize: 28,
+    fontSize: 25,
     lineHeight: 30,
     fontFamily:'Oswald-Regular'
   },

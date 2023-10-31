@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
   buttonText: {
    // Change the text color to your preference
     fontSize: 17,
-    fontWeight:'600'
+    fontWeight:'600',
+    fontFamily:'Oswald-Regular'
   },
 });
 

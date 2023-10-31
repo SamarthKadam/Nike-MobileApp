@@ -8,6 +8,6 @@ app.get('/',(req,res,next)=>{
     })
 })
 const port=8000;
-app.listen(port,'192.168.1.6',()=>{
+app.listen(port,'192.168.1.10',()=>{
     console.log(`SERVER RUNNING IN PORTNO:${port}`);
 })
