@@ -8,7 +8,6 @@ export default function Description() {
 
   const [IsLoggedIn,setIsLoggedIn]=useState(false);
   useEffect(()=>{
-
    const timer=setTimeout(()=>{
     setIsLoggedIn(true);
     },5000)
@@ -25,7 +24,7 @@ export default function Description() {
         sport.
       </Text>
       <View style={styles.btnContainer}>
-        {!IsLoggedIn&&<Button title="Sign In" onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>}
+        {!IsLoggedIn&&<Button title="LOADING..." onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>}
         {IsLoggedIn&&(<>
           <Button title="Login" onPress={() => {}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
           <Button title="Sign In" onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>

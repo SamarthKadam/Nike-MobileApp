@@ -22,16 +22,7 @@ export default function Loading() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImage(image => (image + 1) % images.length);
-    }, 3000);
-    return () => {
-      clearInterval(interval);
-    };
-  }, [currentImage]);
-
-  useEffect(() => {
-    fetch('http://192.168.1.10:8000/')
+    fetch('http://192.168.1.14:8000/')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -45,6 +36,16 @@ export default function Loading() {
         console.error('Error:', error);
       });
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImage(image => (image + 1) % images.length);
+    }, 3000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [currentImage]);
+
   return (
     <View style={styles.screen}>
       <StatusBar hidden={false}></StatusBar>

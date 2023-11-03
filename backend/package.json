@@ -2,16 +2,18 @@
   "name": "nykebackend",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongoose": "^7.6.3",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.6.4",
     "nodemon": "^3.0.1"
   }
 }
