@@ -3,6 +3,7 @@ import {StyleSheet} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Loading from './screens/Loading';
+import Home from './screens/Home';
 const Stack=createNativeStackNavigator();
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
       <Stack.Screen name="LOADING" component={Loading}></Stack.Screen>
+      <Stack.Screen name="HOME" component={Home}></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
   );

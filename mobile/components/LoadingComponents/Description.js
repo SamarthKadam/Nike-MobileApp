@@ -3,8 +3,11 @@ import React from 'react';
 import Logo from '../../assets/images/svgImages/nike_logo.svg';
 import Button from './Button';
 import { useEffect,useState} from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Description() {
+
+  const navigation=useNavigation();
 
   const [IsLoggedIn,setIsLoggedIn]=useState(false);
   useEffect(()=>{
@@ -27,7 +30,7 @@ export default function Description() {
         {!IsLoggedIn&&<Button title="LOADING..." onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>}
         {IsLoggedIn&&(<>
           <Button title="Login" onPress={() => {}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
-          <Button title="Sign In" onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
+          <Button title="Sign In" onPress={() => {navigation.navigate('HOME')}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
         </>)}
       </View>
     </View>

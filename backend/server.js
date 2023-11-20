@@ -16,13 +16,7 @@ process.on("unhandledRejection", (err) => {
   console.log(err.name, err.message);
   console.log("Unhandled rejection");
 });
-
-app.get("/", (req, res, next) => {
-  res.status(200).json({
-    status: "success",
-  });
-});
 const port = 8000;
-app.listen(port, "192.168.1.14", () => {
+app.listen(port, "192.168.1.8", () => {
   console.log(`SERVER RUNNING IN PORTNO:${port}`);
 });

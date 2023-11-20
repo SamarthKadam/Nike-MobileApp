@@ -22,7 +22,7 @@ export default function Loading() {
   }, []);
 
   useEffect(() => {
-    fetch('http://192.168.1.14:8000/')
+    fetch('http://192.168.1.8:8000/')
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
