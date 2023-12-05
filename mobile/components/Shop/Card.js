@@ -1,12 +1,15 @@
 import { View, Text, StyleSheet,Image} from 'react-native'
 import React from 'react'
+import Ripple from 'react-native-material-ripple';
 
 export default function Card({text,src}) {
   return (
+    <Ripple>
     <View style={styles.container}>
       <Image style={styles.img} source={{uri:src}}></Image>
       <Text style={styles.text}>{text}</Text>
     </View>
+    </Ripple>
   )
 }
 

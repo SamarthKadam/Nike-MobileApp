@@ -4,6 +4,7 @@ import Puma from '../../assets/images/svgImages/puma.svg'
 import Adidas from '../../assets/images/svgImages/adidas.svg'
 import Nike from '../../assets/images/svgImages/nike.svg'
 import Reebok from '../../assets/images/svgImages/reebok.svg'
+import Ripple from 'react-native-material-ripple';
 
 const DeviceWidth=Dimensions.get('window').width
 const boxWidth=(DeviceWidth/2)-20;
@@ -11,12 +12,12 @@ export default function Brand() {
   return (
     <View style={styles.container}>
      <View style={{flexDirection:'row'}}>
-        <View style={[styles.box,styles.box1]}><Puma height={90} width={90}></Puma></View>
-        <View style={[styles.box,styles.box2]}><Adidas height={90} width={90}></Adidas></View>
+       <Ripple><View style={[styles.box,styles.box1]}><Puma height={90} width={90}></Puma></View></Ripple> 
+       <Ripple><View style={[styles.box,styles.box2]}><Adidas height={90} width={90}></Adidas></View></Ripple> 
      </View>
      <View style={{flexDirection:'row'}}>
-        <View style={[styles.box,styles.box3]}><Nike height={90} width={90}></Nike></View>
-        <View style={styles.box}><Reebok height={90} width={90}></Reebok></View>
+        <Ripple><View style={[styles.box,styles.box3]}><Nike height={90} width={90}></Nike></View></Ripple>
+       <Ripple><View style={styles.box}><Reebok height={90} width={90}></Reebok></View></Ripple> 
      </View>
     </View>
   )
