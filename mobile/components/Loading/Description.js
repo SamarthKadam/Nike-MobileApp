@@ -2,7 +2,6 @@ import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import React from 'react';
 import Logo from '../../assets/images/svgImages/nike_logo.svg';
 import Button from './Button';
-import { useEffect,useState} from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Description() {

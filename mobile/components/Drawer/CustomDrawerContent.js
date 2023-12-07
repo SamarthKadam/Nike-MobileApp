@@ -30,7 +30,7 @@ const CustomDrawerContent = ({navigation}) => {
             <Icon1 name="home" size={22} color={color} />
           )}
           onPress={() => {
-            navigation.navigate('Shop')
+            navigation.navigate('Shopping')
             setActiveItem(0);
           }}
           activeBackgroundColor='#D4D4D4'

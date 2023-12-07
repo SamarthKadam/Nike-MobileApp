@@ -1,21 +1,22 @@
 import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import Ripple from 'react-native-material-ripple'
 
 export default function HeaderRight() {
 
   return (
     <View style={styles.container}>
-      <Pressable  android_ripple={{color:'rgba(0, 0, 0, 0.2)'}}>
-        <View style={{overflow:'hidden'}}>
+       <Ripple>
+        <View style={styles.button}>
           <Icon size={26} color="black" name="search" />
         </View>
-      </Pressable>
-      <Pressable  android_ripple={{color:'rgba(0, 0, 0, 0.2)'}}>
+       </Ripple>
+       <Ripple>
         <View style={styles.button}>
           <Icon size={26} color="black" name="shopping-bag" />
         </View>
-      </Pressable>
+       </Ripple>
     </View>
   );
 }

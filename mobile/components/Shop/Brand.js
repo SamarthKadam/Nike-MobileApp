@@ -5,14 +5,18 @@ import Adidas from '../../assets/images/svgImages/adidas.svg'
 import Nike from '../../assets/images/svgImages/nike.svg'
 import Reebok from '../../assets/images/svgImages/reebok.svg'
 import Ripple from 'react-native-material-ripple';
+import { useNavigation } from '@react-navigation/native';
 
 const DeviceWidth=Dimensions.get('window').width
 const boxWidth=(DeviceWidth/2)-20;
 export default function Brand() {
+
+  const navigation=useNavigation();
+
   return (
     <View style={styles.container}>
      <View style={{flexDirection:'row'}}>
-       <Ripple><View style={[styles.box,styles.box1]}><Puma height={90} width={90}></Puma></View></Ripple> 
+       <Ripple onPress={()=>{navigation.navigate('Results')}} ><View style={[styles.box,styles.box1]}><Puma height={90} width={90}></Puma></View></Ripple> 
        <Ripple><View style={[styles.box,styles.box2]}><Adidas height={90} width={90}></Adidas></View></Ripple> 
      </View>
      <View style={{flexDirection:'row'}}>

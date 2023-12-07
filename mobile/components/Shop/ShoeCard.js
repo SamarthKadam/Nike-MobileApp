@@ -10,7 +10,7 @@ export default function ShoeCard(value) {
     <Ripple>
     <View style={style.container}>
       <Image style={style.img} source={{uri:value.data.gallery[0]}}></Image>
-      <SmText text={value.data.name}></SmText>
+      <SmText text={`${value.data.brand}:${value.data.name}`}></SmText>
       <LightText text={value.data.price}></LightText>
     </View>
     </Ripple>
