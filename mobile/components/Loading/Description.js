@@ -10,7 +10,7 @@ export default function Description() {
     <View style={styles.container}>
       <Logo height={80} width={80}></Logo>
       <Text style={styles.txt}>
-        Bringing Nyke Members the best products,inspiration and stories in
+        Bringing Nike Members the best products,inspiration and stories in
         sport.
       </Text>
       <View style={styles.btnContainer}>

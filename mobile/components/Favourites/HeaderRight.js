@@ -2,14 +2,16 @@ import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Edit from 'react-native-vector-icons/Octicons'
+import Check from 'react-native-vector-icons/Feather'
 
-export default function HeaderRight() {
+export default function HeaderRight({onEditPress,isEditing}) {
 
   return (
     <View style={styles.container}>
-      <Pressable  android_ripple={{color:'rgba(0, 0, 0, 0.2)'}}>
+      <Pressable onPress={onEditPress}  android_ripple={{color:'rgba(0, 0, 0, 0.2)'}}>
         <View style={{overflow:'hidden'}}>
-          <Edit size={26} color="black" name="pencil" />
+         {!isEditing&&<Edit size={26} color="black" name="pencil" />}
+         {isEditing&&<Check size={26} color="black" name="check" />}
         </View>
       </Pressable>
       <Pressable  android_ripple={{color:'rgba(0, 0, 0, 0.2)'}}>

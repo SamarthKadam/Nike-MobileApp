@@ -3,7 +3,7 @@ import React from 'react'
 
 export default function SmText() {
   return (
-      <Text style={styles.txt}>Messages and notification from Nykee will show up here</Text>
+      <Text style={styles.txt}>Messages and notification from Nike will show up here</Text>
   )
 }
 

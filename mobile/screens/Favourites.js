@@ -1,9 +1,20 @@
 import { View, StyleSheet,Dimensions,FlatList} from 'react-native'
-import React from 'react'
+import React, { useEffect,useState} from 'react'
 import Card from '../components/Favourites/Card'
 import { data } from '../dummydata/bestseller'
+import HeaderRight from '../components/Favourites/HeaderRight'
 const width=Dimensions.get('screen').width
-export default function Favourites() {
+export default function Favourites({navigation}) {
+
+  const [isEditing,setEditing]=useState(false);
+
+  const EditFavourites=()=>{
+    setEditing((value)=>!value);
+  }
+
+  useEffect(()=>{
+    navigation.setOptions({headerRight:()=><HeaderRight isEditing={isEditing} onEditPress={EditFavourites}></HeaderRight>})
+  },[isEditing])
   return (
     <View style={styles.screen}>
       <FlatList data={data}
@@ -12,7 +23,7 @@ export default function Favourites() {
       numColumns={2}
       contentContainerStyle={styles.flatlist}
       renderItem={({ index, item }) => (
-        <Card name={item.name} brand={item.brand} gallery={item.gallery[0]} />
+        <Card isEditing={isEditing} name={item.name} brand={item.brand} gallery={item.gallery[0]} />
         )}
       >
       </FlatList>

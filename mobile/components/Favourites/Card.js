@@ -1,10 +1,11 @@
 import { View, Image,Text, StyleSheet,Dimensions,ActivityIndicator} from 'react-native'
 import React from 'react'
+import Heart from './Heart';
 const DeviceWidth=Dimensions.get('screen').width;
 const content=(DeviceWidth/2)-20;
 import Ripple from 'react-native-material-ripple'
 
-export default function Card({brand,gallery,name}) {
+export default function Card({brand,gallery,name,isEditing}) {
 
   return (
 
@@ -13,9 +14,10 @@ export default function Card({brand,gallery,name}) {
         <View style={styles.imgContainer}>
         <Image style={styles.img} source={{uri:gallery}}></Image>
         </View>
-        <Text style={styles.coltxt}>{brand}</Text>
-        <Text style={styles.txt}>{name}</Text>
-        <Text style={styles.txt} >₹8,685</Text>
+        <Text style={[styles.coltxt,{alignSelf:'flex-start'}]}>{brand}</Text>
+        <Text style={[styles.txt,{alignSelf:'flex-start'}]}>{name}</Text>
+        <Text style={[styles.txt,{alignSelf:'flex-start'}]} >₹8,685</Text>
+        {isEditing&&<Heart></Heart>}
     </View>
     </Ripple>
   )
@@ -24,16 +26,18 @@ export default function Card({brand,gallery,name}) {
 const styles=StyleSheet.create({
     container:{
         width:content,
-        marginHorizontal:5
+        marginHorizontal:5,
+        marginVertical:5,
+        alignItems:'center',
         },
     imgContainer:{
         height:130,
-        width:content,
+        width:content-10,
         justifyContent:"flex-end",
-        marginBottom:10
+        marginBottom:10,
     },
     img:{
-        aspectRatio:700/288
+        aspectRatio:700/288,
     },
     txt:{
         color:'black',

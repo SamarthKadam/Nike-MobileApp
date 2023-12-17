@@ -1,22 +1,33 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const app = require("./app");
-dotenv.config({ path: "./config.env" });
-const DBAuth = process.env.DB.replace("<password>", process.env.DBpassword);
-mongoose
-  .connect(DBAuth, {
-    useUnifiedTopology: true,
-  })
-  .then((con) => {
-    console.log("DB connection successful");
-  });
+const express=require('express');
+const dotenv=require('dotenv')
+const app = express();
+const schema=require('./models/schema')
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const expressGraphQL=require('express-graphql').graphqlHTTP
+dotenv.config({path:'./config.env'});
 
-process.on("unhandledRejection", (err) => {
-  console.log(err.name, err.message);
-  console.log("Unhandled rejection");
-});
-const port = 8000;
-app.listen(port, "192.168.1.5", () => {
-  console.log(`SERVER RUNNING IN PORTNO:${port}`);
+
+const MONGO_URI = 'mongodb+srv://samarthskadam14:Xrkuv9Nn9zLAV8fo@lyricsapplication.iczr8p2.mongodb.net/';
+if (!MONGO_URI) {
+    throw new Error('You must provide a Mongo Atlas URI');
+}
+
+mongoose.connect(MONGO_URI);
+mongoose.connection
+.once('open', () => console.log('Connected to Mongo Atlas instance.'))
+.on('error', (error) =>
+console.log('Error connecting to Mongo Atlas:', error)
+);
+
+app.use(bodyParser.json());
+
+app.use('/graphql',expressGraphQL({
+    schema,
+    graphiql:true
+}))
+
+
+app.listen(4000,()=>{
+    console.log("Listening to port 4000");
 });

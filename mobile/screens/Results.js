@@ -1,10 +1,18 @@
 import {View, StyleSheet, Dimensions, FlatList} from 'react-native';
+import { useEffect } from 'react';
 import React from 'react';
 import Card from '../components/Results/Card';
 import {data} from '../dummydata/bestseller';
+import HeaderRight from '../components/Shop/HeaderRight';
 const width = Dimensions.get('screen').width;
 
-export default function Results() {
+export default function Results({navigation}) {
+
+
+  useEffect(()=>{
+    navigation.setOptions({headerRight:()=><HeaderRight></HeaderRight>})
+  },[])
+
   return (
     <View style={styles.screen}>
       <FlatList

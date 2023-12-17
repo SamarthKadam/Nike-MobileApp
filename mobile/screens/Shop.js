@@ -4,8 +4,9 @@ import Title from '../components/Shop/Title'
 import Library from '../components/Shop/Library'
 import Brand from '../components/Shop/Brand'
 import ProductSlider from '../components/Shop/ProductSlider'
-
 export default function Shop() {
+
+
   return (
     <ScrollView overScrollMode={'never'} style={style.screen}>
       <Title title="This Week's Highlights"></Title>
