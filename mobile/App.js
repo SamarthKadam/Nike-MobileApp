@@ -4,14 +4,22 @@ import AppNavigator from './navigation/AppNavigator';
 import { PaperProvider } from 'react-native-paper';
 import { Provider } from "react-redux";
 import { store } from './store/store';
+import { ApolloClient, InMemoryCache,ApolloProvider} from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://192.168.1.14:4000/graphql', // Replace with your GraphQL server endpoint
+  cache: new InMemoryCache(),
+});
 
 function App() {
   return (
+    <ApolloProvider client={client}>
     <Provider store={store}>
     <PaperProvider>
       <AppNavigator></AppNavigator>
     </PaperProvider>
     </Provider>
+    </ApolloProvider>
   );
 }
 
