@@ -16,12 +16,12 @@ export default function Brand() {
   return (
     <View style={styles.container}>
      <View style={{flexDirection:'row'}}>
-       <Ripple onPress={()=>{navigation.navigate('Results')}} ><View style={[styles.box,styles.box1]}><Puma height={90} width={90}></Puma></View></Ripple> 
-       <Ripple><View style={[styles.box,styles.box2]}><Adidas height={90} width={90}></Adidas></View></Ripple> 
+       <Ripple onPress={()=>{navigation.navigate('Results',{ brand: 'Puma' })}} ><View style={[styles.box,styles.box1]}><Puma height={90} width={90}></Puma></View></Ripple> 
+       <Ripple onPress={()=>{navigation.navigate('Results',{ brand: 'Adidas' })}}><View style={[styles.box,styles.box2]}><Adidas height={90} width={90}></Adidas></View></Ripple> 
      </View>
      <View style={{flexDirection:'row'}}>
-        <Ripple><View style={[styles.box,styles.box3]}><Nike height={90} width={90}></Nike></View></Ripple>
-       <Ripple><View style={styles.box}><Reebok height={90} width={90}></Reebok></View></Ripple> 
+        <Ripple onPress={()=>{navigation.navigate('Results',{ brand: 'Nike' })}}><View style={[styles.box,styles.box3]}><Nike height={90} width={90}></Nike></View></Ripple>
+       <Ripple onPress={()=>{navigation.navigate('Results',{ brand: 'Reebok' })}} ><View style={styles.box}><Reebok height={90} width={90}></Reebok></View></Ripple> 
      </View>
     </View>
   )

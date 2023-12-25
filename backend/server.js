@@ -33,6 +33,6 @@ app.get('/',(req,res)=>{
     })
 })
 
-app.listen(4000,'192.168.1.14',()=>{
+app.listen(4000,'192.168.1.3',()=>{
     console.log("Listening to port 4000");
 });

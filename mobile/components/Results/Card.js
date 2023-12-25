@@ -6,16 +6,16 @@ const content=(DeviceWidth/2)-20;
 const contentHeight=(DeviceHeight/5)
 import Ripple from 'react-native-material-ripple'
 
-export default function Card({brand,gallery,name}) {
+export default function Card({brand,gallery,name,price}) {
   return (
     <Ripple>
     <View style={styles.container}>
         <View style={styles.imgContainer}>
-        <Image style={styles.img} source={{uri:gallery}}></Image>
+        <Image style={[styles.img,name==='ExcelCourt M Basketball Shoes For Men '&&{aspectRatio:640/382}]} source={{uri:gallery}}></Image>
         </View>
         <Text style={styles.txt}>{brand}</Text>
         <Text style={styles.lighttxt}>{name}</Text>
-        <Text style={styles.txt} >MRP : ₹8,685</Text>
+        <Text style={styles.txt} >MRP : ₹{price}</Text>
     </View>
     </Ripple>
   )
@@ -30,10 +30,10 @@ const styles=StyleSheet.create({
         height:contentHeight,
         width:content,
         justifyContent:"center",
-        marginBottom:10
+        marginBottom:10,
     },
     img:{
-        aspectRatio:700/288
+        aspectRatio:720/300
     },
     txt:{
         color:'black',

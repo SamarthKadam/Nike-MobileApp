@@ -5,11 +5,10 @@ const DeviceWidth=Dimensions.get('screen').width;
 const content=(DeviceWidth/2)-20;
 import Ripple from 'react-native-material-ripple'
 
-export default function Card({brand,gallery,name,isEditing}) {
+export default function Card({brand,gallery,name,isEditing,undo,id}) {
 
   return (
-
-    <Ripple>
+    <Ripple onPress={isEditing&&undo.bind(this,id)} >
     <View style={styles.container}>
         <View style={styles.imgContainer}>
         <Image style={styles.img} source={{uri:gallery}}></Image>
