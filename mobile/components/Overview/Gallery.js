@@ -8,7 +8,7 @@ export default function Gallery() {
 
   return (
     <View style={styles.container} >
-      <Image style={styles.img} source={{uri:data[2].gallery[0]}}></Image>
+      <Image style={styles.img} source={{uri:data[4].gallery[0]}}></Image>
     </View>
   )
 }

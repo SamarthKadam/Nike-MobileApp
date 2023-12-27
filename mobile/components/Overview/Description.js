@@ -8,10 +8,10 @@ export default function Description({description}) {
 }
 const styles=StyleSheet.create({
     txt:{
-        marginTop:20,
+        marginVertical:10,
         fontSize:16,
         color:'black',
         lineHeight:25,
-        fontFamily:'Roboto'
+        fontFamily:'DMSans'
     }
 })

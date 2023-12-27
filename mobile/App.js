@@ -7,7 +7,7 @@ import { store } from './store/store';
 import { ApolloClient, InMemoryCache,ApolloProvider} from '@apollo/client';
 
 const client = new ApolloClient({
-  uri: 'http://192.168.1.3:4000/graphql', // Replace with your GraphQL server endpoint
+  uri: 'http://192.168.1.14:4000/graphql', // Replace with your GraphQL server endpoint
   cache: new InMemoryCache(),
 });
 

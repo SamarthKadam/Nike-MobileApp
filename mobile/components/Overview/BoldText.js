@@ -8,8 +8,9 @@ export default function BoldText({title}) {
 }
 const styles=StyleSheet.create({
 txt:{
-    fontFamily:'Roboto-Medium',
+    fontFamily:'DMSans',
     color:'black',
-    fontSize:28
+    fontWeight:'bold',
+    fontSize:24
 }
 })

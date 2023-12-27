@@ -8,7 +8,7 @@ export default function MdText({title,style}) {
 }
 const styles=StyleSheet.create({
 txt:{
-    fontFamily:'Roboto',
+    fontFamily:'DMSans',
     color:'black',
     fontSize:17
 }

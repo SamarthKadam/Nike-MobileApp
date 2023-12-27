@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View,ScrollView, Text, StyleSheet } from 'react-native'
 import { useEffect } from 'react'
 import React from 'react'
 import Gallery from '../components/Overview/Gallery'
@@ -8,6 +8,8 @@ import LightText from '../components/Overview/LightText'
 import Description from '../components/Overview/Description'
 import { data } from '../dummydata/bestseller'
 import HeaderRight from '../components/Shop/HeaderRight'
+import { Picker } from '../components/Overview/Picker'
+import Button from '../components/Overview/Button'
 
 export default function Overview({navigation}) {
 
@@ -15,9 +17,8 @@ export default function Overview({navigation}) {
     navigation.setOptions({headerRight:()=><HeaderRight></HeaderRight>})
   },[])
 
-
   return (
-    <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
       <Gallery></Gallery>
       <View style={styles.btmContainer}>
         <MdText title={`${data[0].brand}Shoes`}></MdText>
@@ -25,8 +26,14 @@ export default function Overview({navigation}) {
         <MdText style={styles.mdTextStyle} title='MRP : ₹ 8,685.00'></MdText>
         <LightText title='Incl of taxes (Also includes all applicable duties)'></LightText>
         <Description description={data[0].description}></Description>
+        <View style={{marginBottom:10}}>
+        <LightText title='View Product Details'></LightText>
+        </View>
+        <Picker></Picker>   
+        <Button btnStyle={styles.button1Container} txtStyle={styles.button1txt} title={'Add to Bag'} ></Button>
+        <Button isfav={1} btnStyle={styles.button2Container} txtStyle={styles.button2txt} title={'Favourite '} ></Button>
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -40,5 +47,19 @@ const styles=StyleSheet.create({
    },
    mdTextStyle:{
     marginTop:10
+   },
+   button1Container:{
+    backgroundColor:'black',
+    marginVertical:10
+   },
+   button2Container:{
+    borderWidth:1,
+    marginVertical:10
+   },
+   button2txt:{
+    color:'black'
+   },
+   button1txt:{
+    color:'white'
    }
 })
