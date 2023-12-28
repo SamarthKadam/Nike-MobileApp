@@ -4,7 +4,7 @@ import Logo from '../../assets/images/svgImages/nike_logo.svg';
 import Button from './Button';
 import { useNavigation } from '@react-navigation/native';
 
-export default function Description() {
+export default function Description({setLoginOpen,setSignupOpen}) {
   const navigation=useNavigation();
   return (
     <View style={styles.container}>
@@ -16,8 +16,8 @@ export default function Description() {
       <View style={styles.btnContainer}>
         {/* {!IsLoggedIn&&<Button title="LOADING..." onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>} */}
         {<>
-          <Button title="Login" onPress={() => {}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
-          <Button title="Sign In" onPress={() => {navigation.navigate('HOME')}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
+          <Button title="Sign up" onPress={() => {setSignupOpen(true)}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
+          <Button title="Sign In" onPress={() => {setLoginOpen(true)}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
         </>}
       </View>
     </View>

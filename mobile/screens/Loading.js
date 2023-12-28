@@ -5,7 +5,10 @@ import {CrossfadeImage} from 'react-native-crossfade-image';
 import Description from '../components/Loading/Description';
 import SplashScreen from 'react-native-splash-screen';
 import LinearGradient from 'react-native-linear-gradient';
-import Button from '../components/Loading/Button';
+import { Modal } from 'react-native';
+import Login from '../components/Auth/Login';
+import Signup from '../components/Auth/Signup';
+
 const images = [
   { uri: 'https://i.ibb.co/TmbYvMT/one.jpg' },
   { uri: 'https://i.ibb.co/jWgxzm5/two.jpg' },
@@ -16,6 +19,8 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 export default function Loading() {
   const [currentImage, setCurrentImage] = useState(0);
+  const [isOpenLoginModel,setLoginModel]=useState(false);
+  const [isOpenSignupModel,setSignupModel]=useState(false);
 
   useEffect(() => {
     SplashScreen.hide();
@@ -41,7 +46,13 @@ export default function Loading() {
           colors={['transparent', 'rgba(0, 0, 0, 0.9)']}
           style={styles.gradient}
         />
-        <Description></Description>
+        <Description setSignupOpen={setSignupModel} setLoginOpen={setLoginModel}></Description>
+        <Modal onRequestClose={()=>{setLoginModel(false)}}  presentationStyle="formSheet" visible={isOpenLoginModel} animationType="slide" >
+          <Login></Login>
+        </Modal>
+        <Modal onRequestClose={()=>{setSignupModel(false)}}  presentationStyle="formSheet" visible={isOpenSignupModel} animationType="slide" >
+          <Signup></Signup>
+        </Modal>
       </View>
     </View>
   );
