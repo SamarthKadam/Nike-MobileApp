@@ -2,9 +2,10 @@ import React from 'react';
 import { View, StyleSheet, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Ripple from 'react-native-material-ripple'
+import { useNavigation } from '@react-navigation/native';
 
 export default function HeaderRight() {
-
+  const navigation=useNavigation();
   return (
     <View style={styles.container}>
        <Ripple>
@@ -12,7 +13,7 @@ export default function HeaderRight() {
           <Icon size={26} color="black" name="search" />
         </View>
        </Ripple>
-       <Ripple>
+       <Ripple onPress={()=>{navigation.navigate("Cart")}}>
         <View style={styles.button}>
           <Icon size={26} color="black" name="shopping-bag" />
         </View>
@@ -25,8 +26,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
-    // width: '40%',
+    paddingHorizontal:8,
     height:'100%',
   },
   button: {

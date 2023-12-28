@@ -5,6 +5,7 @@ import Loading from '../screens/Loading';
 import HomeNavigator from './HomeNavigator';
 import Results from '../screens/Results';
 import Overview from '../screens/Overview';
+import Cart from '../screens/Cart';
 const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
   return (
@@ -22,6 +23,12 @@ export default function AppNavigator() {
           options={{headerShown: true, animation: 'fade_from_bottom'}}
           component={Overview}
         />
+         <Stack.Screen
+          name="Cart"
+          options={{headerShown: true, animation:"simple_push"}}
+          component={Cart}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

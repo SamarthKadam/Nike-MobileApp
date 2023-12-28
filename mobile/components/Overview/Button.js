@@ -5,7 +5,7 @@ import Ripple from 'react-native-material-ripple';
 
 const Button= ({ title, onPress, btnStyle,txtStyle,isfav}) => {
   return (
-        <Ripple style={[styles.button, btnStyle]} onPress={onPress}>
+        <Ripple rippleColor={!isfav?'rgb(211, 211, 211)':'rgb(0, 0, 0)'} style={[styles.button, btnStyle]} onPress={onPress}>
       <Text style={[styles.buttonText,txtStyle]}>{title} {isfav==1&&<Icon size={20} name="hearto"></Icon>}</Text>
     </Ripple>
   );

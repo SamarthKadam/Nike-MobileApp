@@ -16,7 +16,7 @@ export default function Description({setLoginOpen,setSignupOpen}) {
       <View style={styles.btnContainer}>
         {/* {!IsLoggedIn&&<Button title="LOADING..." onPress={() => {}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>} */}
         {<>
-          <Button title="Sign up" onPress={() => {setSignupOpen(true)}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
+          <Button title="Sign up" onPress={() => {navigation.navigate("HOME")}} btnStyle={styles.btn1} txtStyle={styles.btn1txt}></Button>
           <Button title="Sign In" onPress={() => {setLoginOpen(true)}} btnStyle={styles.btn2} txtStyle={styles.btn2txt}></Button>
         </>}
       </View>

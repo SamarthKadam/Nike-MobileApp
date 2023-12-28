@@ -37,7 +37,7 @@ export default function Results({navigation}) {
   if (loading) {
     return (
       <View style={styles.loading}>
-        <ActivityIndicator size="large" />
+        <ActivityIndicator color="black" size="large" />
       </View>
     );
   }
