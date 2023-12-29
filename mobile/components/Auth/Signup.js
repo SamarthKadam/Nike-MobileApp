@@ -10,6 +10,7 @@ import { ActivityIndicator } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { InitializeUser } from '../../store/actions/user/action';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const CREATE_USER_MUTATION = gql`
@@ -31,6 +32,15 @@ export default function Login() {
     const { colors } = useTheme();
     const navigation=useNavigation();
     
+
+    const storeData = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value);
+        await AsyncStorage.setItem('jwt', jsonValue);
+      } catch (e) {
+        console.log("ERROR",e);
+      }
+    };
 
 
 
@@ -57,8 +67,9 @@ export default function Login() {
         const { data } = await createUserMutation({
           variables: { name, email, password },
         });
+        storeData(data.createUser.token)
         dispatch(InitializeUser({id:data.createUser.id,name:data.createUser.name}));
-        navigation.navigate('HOME');
+        navigation.replace('HOME');
 
       } catch (error) {
         console.error('Error:', error);

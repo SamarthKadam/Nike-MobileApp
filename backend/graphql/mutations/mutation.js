@@ -5,6 +5,7 @@ const User = require("../../models/userModel");
 const Shoe = require("../../models/shoeModel");
 const UserType = require("../types/user_type");
 const ShoeType = require("../types/shoe_type");
+const jwt=require('jsonwebtoken');
 const mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
@@ -40,11 +41,23 @@ const mutation = new GraphQLObjectType({
         const user=await User.findOne({email}).select('+password');
         if(!user || !(await user.correctPassword(user.password,password)))
         {
-            return next( new AppError('Incorrect email or password',400))
+            throw new Error("User No Longer Exist");
         }
         const token=signToken(user._id);
         return {id:user._id,token,name:user.name}
       },
+    },
+    tokenToUser:{
+      type:UserType,
+      args:{
+        token:{type:GraphQLString}
+      },
+      async resolve(parentValue,{token})
+      {
+        const decode=jwt.verify(token,process.env.JWTSECRET)
+        const freshUser=await User.findById(decode.id);
+        return {name:freshUser.name,id:freshUser._id};
+      }
     },
     addToFavourites: {
       type: UserType,

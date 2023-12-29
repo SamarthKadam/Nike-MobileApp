@@ -4,13 +4,41 @@ import Logo from '../../assets/images/svgImages/nike-black.svg'
 import { useState } from 'react'
 import { TextInput,useTheme} from 'react-native-paper';
 import Ripple from 'react-native-material-ripple';
+import { gql,useMutation} from '@apollo/client';
+import { Alert } from 'react-native';
+import { ActivityIndicator } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { InitializeUser } from '../../store/actions/user/action';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const LOGIN_USER_MUTATION = gql`
+  mutation LoginUser( $email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      id
+      token
+      name
+    }
+  }
+`;
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
     const [password,setPassword]=useState('')
     const { colors } = useTheme();
+    const dispatch=useDispatch();
+    const navigation=useNavigation();
+
+
+    const storeData = async (value) => {
+      try {
+        const jsonValue = JSON.stringify(value);
+        await AsyncStorage.setItem('jwt', jsonValue);
+      } catch (e) {
+        console.log("ERROR",e);
+      }
+    };
 
     const onChangeText = (newText) => {
       setEmail(newText);
@@ -18,6 +46,29 @@ export default function Login() {
 
     const onChangePassword=(newPswd)=>{
         setPassword(newPswd)
+    }
+
+    const [loginUserMutation,{loading,data}] = useMutation(LOGIN_USER_MUTATION);
+    const handleCreateUser = async () => {
+  
+      try {
+        const { data } = await loginUserMutation({
+          variables: { email, password },
+        });
+        storeData(data.loginUser.token);
+        dispatch(InitializeUser({id:data.loginUser.id,name:data.loginUser.name}));
+        navigation.replace('HOME');
+
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    const submitHandler=()=>{
+      if(!email||!password)
+      return Alert.alert('Some fields are left empty');
+
+      handleCreateUser();
     }
   
   return (
@@ -44,8 +95,8 @@ export default function Login() {
         placeholderTextColor='#C9C9C9'
         placeholder="Password"/>
         </View>
-        <Ripple rippleColor='rgb(211, 211, 211)' style={styles.button} onPress={()=>{}}>
-      <Text style={[styles.buttonText]}>Sign in</Text>
+        <Ripple rippleColor='rgb(211, 211, 211)' style={styles.button} onPress={()=>{submitHandler()}}>
+        {loading?<ActivityIndicator size="small" color='white'></ActivityIndicator>:<Text style={[styles.buttonText]}>Sign In</Text>}
     </Ripple>
     <View >
     <Text style={{color:'grey'}}>Don't have an account? <Text style={{fontWeight:'600',color:'black'}}>SIGN UP!</Text></Text>
