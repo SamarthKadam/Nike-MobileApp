@@ -27,12 +27,7 @@ app.use('/graphql',expressGraphQL({
 }))
 
 
-app.get('/',(req,res)=>{
-    res.status(200).json({
-        message:'fuck you'
-    })
-})
 
-app.listen(4000,'192.168.1.14',()=>{
+app.listen(4000,'192.168.146.202',()=>{
     console.log("Listening to port 4000");
 });

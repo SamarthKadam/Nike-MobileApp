@@ -25,7 +25,6 @@ export default function Card({data}) {
         tintColor="black"
         borderColor="black"
         textColor="black"
-        onValueChange={()=>{}}
       />
         </View>
         <View>

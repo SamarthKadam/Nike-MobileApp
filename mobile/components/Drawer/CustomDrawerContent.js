@@ -7,10 +7,12 @@ import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/AntDesign';
 import Icon4 from 'react-native-vector-icons/AntDesign';
 import { useState } from 'react';
+import { useSelector } from 'react-redux'
 const ViewPortHeight = Dimensions.get('window').height;
 const CustomDrawerContent = ({navigation}) => {
 
   const [activeItem,setActiveItem]=useState(0);
+  const Name=useSelector((state)=>state.user.name);
 
   return (
     <DrawerContentScrollView style={styles.container}>
@@ -21,7 +23,7 @@ const CustomDrawerContent = ({navigation}) => {
             uri: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg',
           }}
         />
-        <Text style={styles.text}>Samarth Kadam</Text>
+        <Text style={styles.text}>{Name}</Text>
       </View>
       <View style={styles.headerContainer}>
         <DrawerItem

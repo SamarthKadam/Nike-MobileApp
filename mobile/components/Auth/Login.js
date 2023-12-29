@@ -44,7 +44,7 @@ export default function Login() {
         placeholderTextColor='#C9C9C9'
         placeholder="Password"/>
         </View>
-        <Ripple style={styles.button} onPress={()=>{}}>
+        <Ripple rippleColor='rgb(211, 211, 211)' style={styles.button} onPress={()=>{}}>
       <Text style={[styles.buttonText]}>Sign in</Text>
     </Ripple>
     <View >
