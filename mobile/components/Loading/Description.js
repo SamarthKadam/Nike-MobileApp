@@ -18,7 +18,6 @@ const VERIFY_USER_MUTATION = gql`
   }
 `;
 
-
 export default function Description({setLoginOpen,setSignupOpen}) {
   const navigation=useNavigation();
   const dispatch=useDispatch();

@@ -5,10 +5,14 @@ const DeviceHeight=Dimensions.get('screen').height
 const content=(DeviceWidth/2)-20;
 const contentHeight=(DeviceHeight/5)
 import Ripple from 'react-native-material-ripple'
+import { useNavigation } from '@react-navigation/native';
 
-export default function Card({brand,gallery,name,price}) {
+export default function Card({id,brand,gallery,name,price}) {
+
+  const navigation=useNavigation();
+
   return (
-    <Ripple>
+    <Ripple onPress={()=>{navigation.navigate('Overview',{shoeId:id})}}>
     <View style={styles.container}>
         <View style={styles.imgContainer}>
         <Image style={[styles.img,name==='ExcelCourt M Basketball Shoes For Men '&&{aspectRatio:640/382}]} source={{uri:gallery}}></Image>

@@ -4,11 +4,11 @@ import { data } from '../../dummydata/bestseller'
 import { Dimensions } from 'react-native'
 const width=Dimensions.get('window').width;
 
-export default function Gallery() {
+export default function Gallery({images}) {
 
   return (
     <View style={styles.container} >
-      <Image style={styles.img} source={{uri:data[4].gallery[0]}}></Image>
+      <Image style={styles.img} source={{uri:images[0]}}></Image>
     </View>
   )
 }
@@ -23,7 +23,7 @@ const styles=StyleSheet.create({
     },
     img:{
         width:width-20,
-        aspectRatio:648/268
+        aspectRatio:668/288
     }
 
 })

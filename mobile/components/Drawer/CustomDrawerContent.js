@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, StyleSheet, Dimensions, Text} from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {Avatar} from 'react-native-paper';
@@ -11,8 +11,16 @@ import { useSelector } from 'react-redux'
 const ViewPortHeight = Dimensions.get('window').height;
 const CustomDrawerContent = ({navigation}) => {
 
+
   const [activeItem,setActiveItem]=useState(0);
   const Name=useSelector((state)=>state.user.name);
+  const isActive=useSelector((state)=>state.ui.isShopScreen);
+
+  useEffect(()=>{
+    if(isActive===true)
+    setActiveItem(0);
+
+  },[isActive])
 
   return (
     <DrawerContentScrollView style={styles.container}>

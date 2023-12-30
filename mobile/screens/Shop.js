@@ -4,7 +4,19 @@ import Title from '../components/Shop/Title'
 import Library from '../components/Shop/Library'
 import Brand from '../components/Shop/Brand'
 import ProductSlider from '../components/Shop/ProductSlider'
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { SetShopScreen } from '../store/actions/ui/action'
+import { useEffect } from 'react'
 export default function Shop() {
+
+  const isFocused = useIsFocused();
+  const dispatch=useDispatch();
+
+  useEffect(()=>{
+    if(isFocused)
+  dispatch(SetShopScreen(true));
+  },[isFocused])
 
 
   return (

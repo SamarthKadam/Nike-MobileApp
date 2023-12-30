@@ -30,7 +30,6 @@
     "react-native-splash-screen": "^3.3.0",
     "react-native-svg": "^13.14.0",
     "react-native-svg-transformer": "^1.1.0",
-    "react-native-ui-stepper": "^1.2.4",
     "react-native-vector-icons": "^10.0.0",
     "react-redux": "^9.0.2",
     "redux": "^5.0.0",

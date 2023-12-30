@@ -1,18 +1,20 @@
 export const data=[
     {
+        id:"6581be9844d439dab8a2fe32",
         brand: "Nike ",
-        name: "Revolution 5 Running Shoes For Men",
-        description: "The Revolution 5 Running Shoes for Men offer superior comfort and performance. These sleek and stylish shoes feature advanced cushioning for a smooth stride, making them the perfect choice for your runs.",
+        name: "Renew Ride 3 Running Shoes For Men",
+        description: "The Renew Ride 3 Running Shoes for Men are a fantastic choice for runners. With responsive cushioning and a sleek design, they provide excellent comfort and style for your runs.",
         gallery:[
-          "https://i.ibb.co/KG78PnL/1nike1.png",
-          "https://i.ibb.co/JFsz7Z0/2nike2.png",
-          "https://i.ibb.co/xFYDHLv/3nike3.png",
-          "https://i.ibb.co/wgPj6g1/4nike4.png"
+          "https://i.ibb.co/zxvmFpX/nike1.png",
+          "https://i.ibb.co/6FSRG1m/nike2.png",
+          "https://i.ibb.co/WvjnVwW/nike3.png",
+          "https://i.ibb.co/hMV00XR/nike4.png"
         ],
-        price: "1,799",
+        price: "4,810",
         sizes: [6, 7, 8, 9, 10, 11, 12]
       },
       {
+        id:"6581be9844d439dab8a2fe31",
         brand: "Nike",
         name: "Air Max SC Men's Shoes Sneakers For Men ",
         description: "Air Max SC Men's Shoes - the perfect blend of style and comfort. With iconic Air Max cushioning, they offer exceptional support and timeless design, ideal for fashion-forward men.",
@@ -26,6 +28,7 @@ export const data=[
         sizes: [6, 7, 8, 9, 10, 11, 12]
       },
       {
+        id:"6581bea544d439dab8a2fe37",
         brand: "Puma",
         name: "Amaze Runner Sneakers For Men",
         description: " Amaze Runner Sneakers for Men: A perfect blend of style and comfort for men on the go.",
@@ -39,6 +42,7 @@ export const data=[
         sizes: [6, 7, 8, 9, 10, 11, 12]
       },
       {
+        id:"6581beb544d439dab8a2fe4a",
         "brand": "Reebok",
         "name": "Run Gazele Running Shoes For Men",
         "description": "The Reebok Run Gazele Running Shoes for Men are the ultimate choice for runners and active individuals. These shoes offer a perfect combination of style and performance. With their dynamic design and vibrant flair, they are sure to turn heads.",
@@ -52,6 +56,7 @@ export const data=[
         "sizes": [6, 7, 8, 9, 10, 11, 12]
       },
       {
+        id:"6581bea544d439dab8a2fe40",
         brand: "Puma",
         name: "Flair 2 Running Shoes For Men",
         description: "The PUMA Flair 2 Running Shoes for Men are the ultimate choice for runners and active individuals. These shoes offer a perfect combination of style and performance. With their dynamic design and vibrant flair, they are sure to turn heads. ",
@@ -65,6 +70,7 @@ export const data=[
         sizes: [6, 7, 8, 9, 10, 11, 12]
       },
       {
+        id:"6581beb544d439dab8a2fe46",
         brand: "Reebok",
         name: "Stride Runner M Running Shoes For Men ",
         description: "The Reebok Stride Runner M Running Shoes for Men are a fantastic combination of style and performance. These shoes feature a sleek and contemporary design, making them a fashionable choice for running and daily activities. Prioritizing comfort, they provide excellent cushioning and support for a smooth and comfortable running experience.",

@@ -1,11 +1,10 @@
 import { View, Text,Image, StyleSheet } from 'react-native'
 import React from 'react'
 import { Dimensions } from 'react-native'
-import UIStepper from 'react-native-ui-stepper';
 const width=Dimensions.get('screen').width;
 
-
 export default function Card({data}) {
+
 
   return (
     <View style={styles.container}>
@@ -18,14 +17,6 @@ export default function Card({data}) {
      </View>
      <View style={styles.btmContainer}>
         <View style={{width:'20%'}}>
-        <UIStepper
-        minimumValue={0}
-        maximumValue={4}
-        displayValue={true}
-        tintColor="black"
-        borderColor="black"
-        textColor="black"
-      />
         </View>
         <View>
         <Text style={[styles.darktxt,{textAlign:"right"}]}>MRP:₹ 10,785.00</Text>

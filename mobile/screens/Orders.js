@@ -1,8 +1,18 @@
 import { ScrollView, Text, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Card from '../components/Orders/Card';
 import { data } from '../dummydata/bestseller';
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { SetShopScreen } from '../store/actions/ui/action';
 export default function Orders() {
+
+  const dispatch=useDispatch();
+  const isFocused = useIsFocused();
+  useEffect(()=>{
+    if(isFocused)
+  dispatch(SetShopScreen(false));
+  },[isFocused])
 
   return (
     <ScrollView style={styles.screen}>

@@ -11,6 +11,7 @@ const width = Dimensions.get('screen').width;
 const SHOE_CATEGORY_QUERY = gql`
   query ShoeCategory($brand: String!) {
     shoeCategory(brand: $brand) {
+      id,
       name,
       brand,
       gallery,
@@ -60,7 +61,7 @@ export default function Results({navigation}) {
         numColumns={2}
         contentContainerStyle={styles.flatlist}
         renderItem={({index, item}) => (
-          <Card name={item.name} brand={item.brand} price={item.price} gallery={item.gallery[0]} />
+          <Card id={item.id} name={item.name} brand={item.brand} price={item.price} gallery={item.gallery[0]} />
         )}></FlatList>
     </View>
   );

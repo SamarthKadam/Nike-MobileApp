@@ -8,14 +8,14 @@ export default function Library() {
   return (
     <View>
       <View style={styles.container}>
-        <ShoeCard data={data[0]}></ShoeCard>
-        <ShoeCard data={data[1]}></ShoeCard>
-        <ShoeCard data={data[2]}></ShoeCard>
+        <ShoeCard value={data[0]}></ShoeCard>
+        <ShoeCard value={data[1]}></ShoeCard>
+        <ShoeCard value={data[2]}></ShoeCard>
       </View>
       <View style={styles.container}>
-       <ShoeCard data={data[4]}></ShoeCard>
-        <ShoeCard data={data[5]}></ShoeCard>
-        <ShoeCard data={data[3]}></ShoeCard>
+       <ShoeCard value={data[4]}></ShoeCard>
+        <ShoeCard value={data[5]}></ShoeCard>
+        <ShoeCard value={data[3]}></ShoeCard>
       </View>
       <View style={styles.btnContainer}>
         <Button title="View All" style={styles.btn1} onPress={() => {}} ></Button>

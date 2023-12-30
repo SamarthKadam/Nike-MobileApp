@@ -2,9 +2,21 @@ import { View, StyleSheet,Dimensions,FlatList} from 'react-native'
 import React, { useEffect,useState} from 'react'
 import Card from '../components/Favourites/Card'
 import HeaderRight from '../components/Favourites/HeaderRight'
+import { useIsFocused } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { SetShopScreen } from '../store/actions/ui/action';
 const width=Dimensions.get('screen').width
 
 export default function Favourites({navigation}) {
+
+  const dispatch=useDispatch();
+  const isFocused = useIsFocused();
+
+  useEffect(()=>{
+    if(isFocused)
+  dispatch(SetShopScreen(false));
+  },[isFocused])
+  
 
   const [isEditing,setEditing]=useState(false);
 
