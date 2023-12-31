@@ -81,6 +81,28 @@ const mutation = new GraphQLObjectType({
         }
       },
     },
+    addToCart: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLID },
+        shoeId: { type: GraphQLID },
+      },
+      async resolve(parentValue, { id, shoeId }) {
+        try {
+          const user = await User.findById(id);
+          if (!user) {
+            throw new Error("User not found");
+          }
+
+          user.cartItems.push(shoeId);
+          await user.save();
+
+          return user.populate("cartItems");
+        } catch (err) {
+          throw new Error(err);
+        }
+      },
+    },
   },
 });
 

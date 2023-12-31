@@ -29,7 +29,6 @@ export default function Description({setLoginOpen,setSignupOpen}) {
         variables: {token},
       });
       dispatch(InitializeUser({id:data.tokenToUser.id,name:data.tokenToUser.name}));
-      console.log("successfully verified user");
       navigation.replace('HOME');
     } catch (error) {
       setIsLoggedIn(false);
@@ -39,7 +38,6 @@ export default function Description({setLoginOpen,setSignupOpen}) {
 
   useEffect(()=>{
     const retrievedValue = AsyncStorage.getItem('jwt').then((value) => {
-      console.log(value); // This will log 'null' initially
       if(value!==null)
       handleUser(JSON.parse(value));
       else if(value===null)

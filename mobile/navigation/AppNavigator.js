@@ -25,7 +25,7 @@ export default function AppNavigator() {
         />
          <Stack.Screen
           name="Cart"
-          options={{headerShown: true, animation:"simple_push"}}
+          options={{headerShown: true, animation:"slide_from_right"}}
           component={Cart}
         />
 

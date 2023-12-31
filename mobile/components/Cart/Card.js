@@ -1,9 +1,15 @@
-import { View, Text,Image, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, Text,Image, StyleSheet} from 'react-native'
+import React,{useState} from 'react'
 import { Dimensions } from 'react-native'
+import Stepper from './Stepper';
 const width=Dimensions.get('screen').width;
 
 export default function Card({data}) {
+
+const [stepperValue, setStepperValue] = useState(0);
+  const handleValueChange = (value) => {
+    setStepperValue(value);
+  };
 
 
   return (
@@ -17,6 +23,7 @@ export default function Card({data}) {
      </View>
      <View style={styles.btmContainer}>
         <View style={{width:'20%'}}>
+        <Stepper onValueChange={handleValueChange}></Stepper>
         </View>
         <View>
         <Text style={[styles.darktxt,{textAlign:"right"}]}>MRP:₹ 10,785.00</Text>
