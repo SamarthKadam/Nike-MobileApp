@@ -1,11 +1,11 @@
-import { View, StyleSheet,Dimensions,FlatList} from 'react-native'
+import { View, StyleSheet,ToastAndroid,Dimensions,FlatList} from 'react-native'
 import React, { useEffect,useState} from 'react'
 import Card from '../components/Favourites/Card'
 import HeaderRight from '../components/Favourites/HeaderRight'
 import { useIsFocused } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { SetShopScreen } from '../store/actions/ui/action';
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql,useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux'
 import { ActivityIndicator } from 'react-native';
 const width=Dimensions.get('screen').width;
@@ -23,11 +23,19 @@ const GET_FAVOURITES_QUERY = gql`
   }
 `;
 
+const REMOVEFROM_FAV=gql`
+mutation AddToFavourites( $id: ID!, $shoeId: ID!) {
+  removefromFavourites(id: $id, shoeId: $shoeId) {
+    name
+  }
+}`;
+
 export default function Favourites({navigation}) {
 
   const id=useSelector((state)=>state.user.id);
   const dispatch=useDispatch();
   const isFocused = useIsFocused();
+  const [Favourites,setFavourites]=useState([])
   useEffect(()=>{
     if(isFocused)
   dispatch(SetShopScreen(false));
@@ -46,12 +54,15 @@ export default function Favourites({navigation}) {
     variables: { id:id },
   });
 
+  const [removeFavMutation,{loading:mutationLoading,data:mutationdata}] = useMutation(REMOVEFROM_FAV);
+
   useEffect(()=>{
     if(isFocused)
-    refetch();
-  },[isFocused])
-
-  const [Favourites,setFavourites]=useState([])
+    {
+      refetch();
+      setFavourites(data.userInfo.favourites);
+    }
+  },[isFocused,data])
 
   useEffect(()=>{
     if(data===undefined)
@@ -59,6 +70,21 @@ export default function Favourites({navigation}) {
     setFavourites(data.userInfo.favourites);
   },[data])
 
+
+  const showToast = () => {
+    ToastAndroid.show('Successfully removed !', ToastAndroid.SHORT);
+  };
+
+  const REMOVEFROMFAVOURTIES=async(shoeId)=>{
+    try {
+      const { data } = await removeFavMutation({
+      variables: { id, shoeId },
+      });
+      showToast();
+      } catch (error) {
+      console.error('Error:', error);
+      }
+  }
 
 
   if (loading) {
@@ -70,6 +96,7 @@ export default function Favourites({navigation}) {
   }
 
   const UndoHandler=(id)=>{
+    REMOVEFROMFAVOURTIES(id);
     setFavourites((data)=>data.filter((val)=>val.id!==id))
   }
   return (

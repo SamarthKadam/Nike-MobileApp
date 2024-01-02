@@ -1,4 +1,4 @@
-import { View,ScrollView, Text, StyleSheet } from 'react-native'
+import { View,ScrollView, ToastAndroid, StyleSheet } from 'react-native'
 import { useEffect } from 'react'
 import React from 'react'
 import Gallery from '../components/Overview/Gallery'
@@ -62,11 +62,16 @@ export default function Overview({navigation}) {
     );
   }
 
+  const showToast = () => {
+    ToastAndroid.show('Added To Favourites !', ToastAndroid.SHORT);
+  };
+
   const ADDTOFAVOURTIES=async()=>{
     try {
       const { data } = await addFavMutation({
       variables: { id, shoeId },
       });
+      showToast();
       } catch (error) {
       console.error('Error:', error);
       }
