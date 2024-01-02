@@ -103,6 +103,28 @@ const mutation = new GraphQLObjectType({
         }
       },
     },
+    removefromFavourites:{
+      type:UserType,
+      args:{
+        id:{type:GraphQLID},
+        shoeId:{type:GraphQLID}
+      },
+      async resolve(parentValue, { id, shoeId }) {
+        try {
+          const user = await User.findById(id);
+          if (!user) {
+            throw new Error("User not found");
+          }
+
+          user.favourites.pop(shoeId);
+          await user.save();
+
+          return user
+        } catch (err) {
+          throw new Error(err);
+        }
+      },
+    }
   },
 });
 

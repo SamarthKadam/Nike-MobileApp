@@ -5,7 +5,8 @@ const DeviceWidth=Dimensions.get('screen').width;
 const content=(DeviceWidth/2)-20;
 import Ripple from 'react-native-material-ripple'
 
-export default function Card({brand,gallery,name,isEditing,undo,id}) {
+export default function Card({brand,gallery,name,isEditing,undo,id,price}) {
+
 
   return (
     <Ripple onPress={isEditing&&undo.bind(this,id)} >
@@ -15,7 +16,7 @@ export default function Card({brand,gallery,name,isEditing,undo,id}) {
         </View>
         <Text style={[styles.coltxt,{alignSelf:'flex-start'}]}>{brand}</Text>
         <Text style={[styles.txt,{alignSelf:'flex-start'}]}>{name}</Text>
-        <Text style={[styles.txt,{alignSelf:'flex-start'}]} >₹8,685</Text>
+        <Text style={[styles.txt,{alignSelf:'flex-start'}]} >₹{price}</Text>
         {isEditing&&<Heart></Heart>}
     </View>
     </Ripple>

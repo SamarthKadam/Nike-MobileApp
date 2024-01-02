@@ -10,13 +10,16 @@ import Description from '../components/Overview/Description'
 import HeaderRight from '../components/Shop/HeaderRight'
 import { Picker } from '../components/Overview/Picker'
 import Button from '../components/Overview/Button'
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql,useMutation} from '@apollo/client';
 import { ActivityIndicator } from 'react-native'
 import { useRoute } from '@react-navigation/native';
+import { useSelector } from 'react-redux'
+
 
 const SHOE_OVERVIEW_QUERY = gql`
   query ShoeOverview($id: ID!) {
     shoe(id: $id) {
+      id,
       name,
       brand,
       gallery,
@@ -26,8 +29,17 @@ const SHOE_OVERVIEW_QUERY = gql`
   }
 `;
 
+const ADDTOFAV_MUTATION=gql`
+mutation AddToFavourites( $id: ID!, $shoeId: ID!) {
+  addToFavourites(id: $id, shoeId: $shoeId) {
+    name
+  }
+}`;
+
+
 export default function Overview({navigation}) {
 
+  const id=useSelector((state)=>state.user.id);
   const route=useRoute();
   const { shoeId } = route.params;
   useEffect(()=>{
@@ -38,12 +50,26 @@ export default function Overview({navigation}) {
     variables: { id:shoeId },
   });
 
+  const [addFavMutation,{loading:mutationLoading,data:mutationdata}] = useMutation(ADDTOFAV_MUTATION);
+
+
+
   if (loading) {
     return (
       <View style={styles.loading}>
         <ActivityIndicator color="black" size="large" />
       </View>
     );
+  }
+
+  const ADDTOFAVOURTIES=async()=>{
+    try {
+      const { data } = await addFavMutation({
+      variables: { id, shoeId },
+      });
+      } catch (error) {
+      console.error('Error:', error);
+      }
   }
 
   return (
@@ -60,7 +86,7 @@ export default function Overview({navigation}) {
         </View>
         <Picker></Picker>   
         <Button btnStyle={styles.button1Container} txtStyle={styles.button1txt} title={'Add to Bag'} ></Button>
-        <Button isfav={1} btnStyle={styles.button2Container} txtStyle={styles.button2txt} title={'Favourite '} ></Button>
+        <Button onPress={ADDTOFAVOURTIES} isfav={1} btnStyle={styles.button2Container} txtStyle={styles.button2txt} title={'Favourite '} ></Button>
       </View>
     </ScrollView>
   )

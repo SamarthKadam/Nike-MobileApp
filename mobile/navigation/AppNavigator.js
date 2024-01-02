@@ -12,7 +12,7 @@ export default function AppNavigator() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name="LOADING" component={Loading}></Stack.Screen>
-        <Stack.Screen name="HOME" component={HomeNavigator}></Stack.Screen>
+        <Stack.Screen name="HOME" options={{animation:"slide_from_right"}} component={HomeNavigator}></Stack.Screen>
         <Stack.Screen
           name="Results"
           options={{headerShown: true, animation: 'fade_from_bottom'}}
