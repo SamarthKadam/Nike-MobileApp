@@ -13,7 +13,8 @@ import Button from '../components/Overview/Button'
 import { useQuery, gql,useMutation} from '@apollo/client';
 import { ActivityIndicator } from 'react-native'
 import { useRoute } from '@react-navigation/native';
-import { useSelector } from 'react-redux'
+import { useSelector,useDispatch} from 'react-redux'
+import { AddToFavourites } from '../store/actions/user/action'
 
 
 const SHOE_OVERVIEW_QUERY = gql`
@@ -39,7 +40,9 @@ mutation AddToFavourites( $id: ID!, $shoeId: ID!) {
 
 export default function Overview({navigation}) {
 
+  const dispatch=useDispatch();
   const id=useSelector((state)=>state.user.id);
+  const favouriteId=useSelector((state)=>state.user.favourites);
   const route=useRoute();
   const { shoeId } = route.params;
   useEffect(()=>{
@@ -62,16 +65,21 @@ export default function Overview({navigation}) {
     );
   }
 
-  const showToast = () => {
-    ToastAndroid.show('Added To Favourites !', ToastAndroid.SHORT);
+  const showToast = (message) => {
+    ToastAndroid.show(message, ToastAndroid.SHORT);
   };
 
   const ADDTOFAVOURTIES=async()=>{
+
+    if(favouriteId.includes(shoeId))
+     return showToast('Already in Favourites !');
+
     try {
       const { data } = await addFavMutation({
       variables: { id, shoeId },
-      });
-      showToast();
+    });
+      dispatch(AddToFavourites(shoeId));
+      showToast('Added To Favourites !');
       } catch (error) {
       console.error('Error:', error);
       }
@@ -91,7 +99,7 @@ export default function Overview({navigation}) {
         </View>
         <Picker></Picker>   
         <Button btnStyle={styles.button1Container} txtStyle={styles.button1txt} title={'Add to Bag'} ></Button>
-        <Button onPress={ADDTOFAVOURTIES} isfav={1} btnStyle={styles.button2Container} txtStyle={styles.button2txt} title={'Favourite '} ></Button>
+        <Button onPress={ADDTOFAVOURTIES} isColored={favouriteId.includes(shoeId)} isfav={1} btnStyle={styles.button2Container} txtStyle={styles.button2txt} title={'Favourite '} ></Button>
       </View>
     </ScrollView>
   )

@@ -8,10 +8,38 @@ import { useIsFocused } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import { SetShopScreen } from '../store/actions/ui/action'
 import { useEffect } from 'react'
+import { useQuery, gql,useMutation} from '@apollo/client';
+import { useSelector } from 'react-redux'
+import { InitializeFavourites } from '../store/actions/user/action'
+
+const GET_FAVOURITES_QUERY = gql`
+  query getFavourites($id: ID!) {
+    userInfo(id: $id) {
+      favourites {
+        id,
+      }
+    }
+  }
+`;
+
+
+
 export default function Shop() {
 
+  const id=useSelector((state)=>state.user.id);
   const isFocused = useIsFocused();
   const dispatch=useDispatch();
+  const { loading, error, data,refetch} = useQuery(GET_FAVOURITES_QUERY, {
+    variables: { id:id },
+  });
+
+
+  useEffect(()=>{
+    if(data===undefined)
+    return
+
+    dispatch(InitializeFavourites(data.userInfo.favourites));
+  },[data])
 
   useEffect(()=>{
     if(isFocused)

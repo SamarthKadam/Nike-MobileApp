@@ -1,6 +1,7 @@
 const userState = {
     name:null,
-    id:null
+    id:null,
+    favourites:[]
 };
     
     const userReducer = (state = userState, action) => {
@@ -12,7 +13,18 @@ const userState = {
             id: action.payload.id,
             name: action.payload.name
           };
-        
+
+        case "INITIALIZE_FAVOURITES":
+          return {
+            ...state,
+            favourites:action.payload
+          }
+
+        case "ADD_TO_FAVOURITES":
+          return {
+            ...state,
+            favourites:[...state.favourites,action.payload]
+          }
 
         default:
           return state;
