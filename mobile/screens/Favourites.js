@@ -59,6 +59,9 @@ export default function Favourites({navigation}) {
   useEffect(()=>{
     if(isFocused)
     {
+      if(data===undefined)
+      return
+
       refetch();
       setFavourites(data.userInfo.favourites);
     }

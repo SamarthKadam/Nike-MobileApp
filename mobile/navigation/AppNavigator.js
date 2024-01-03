@@ -6,6 +6,7 @@ import HomeNavigator from './HomeNavigator';
 import Results from '../screens/Results';
 import Overview from '../screens/Overview';
 import Cart from '../screens/Cart';
+import Search from '../screens/Search';
 const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
   return (
@@ -27,6 +28,11 @@ export default function AppNavigator() {
           name="Cart"
           options={{headerShown: true, animation:"slide_from_right"}}
           component={Cart}
+        />
+            <Stack.Screen
+          name="Search"
+          options={{headerShown: false, animation:"fade"}}
+          component={Search}
         />
 
       </Stack.Navigator>

@@ -8,7 +8,7 @@ export default function HeaderRight() {
   const navigation=useNavigation();
   return (
     <View style={styles.container}>
-       <Ripple>
+       <Ripple onPress={()=>{navigation.navigate('Search')}}>
         <View style={styles.button}>
           <Icon size={26} color="black" name="search" />
         </View>

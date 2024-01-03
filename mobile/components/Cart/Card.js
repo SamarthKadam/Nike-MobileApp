@@ -26,7 +26,7 @@ const [stepperValue, setStepperValue] = useState(0);
         <Stepper onValueChange={handleValueChange}></Stepper>
         </View>
         <View>
-        <Text style={[styles.darktxt,{textAlign:"right"}]}>MRP:₹ 10,785.00</Text>
+        <Text style={[styles.darktxt,{textAlign:"right"}]}>MRP:₹ {data.price}</Text>
         <Text style={[styles.lighttxt,{textAlign:"right"}]}>Incl. of taxes</Text>
         <Text style={[styles.lighttxt,{textAlign:"right"}]}>(Also includes all applicable duties)</Text>
         </View>

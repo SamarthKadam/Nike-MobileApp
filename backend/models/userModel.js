@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Shoe" }],
   },
   cartItems: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Shoe" }],
+    type: [{shoe:{ type: mongoose.Schema.Types.ObjectId, ref: "Shoe"},count:{type:Number,default:1} }],
   },
 });
 

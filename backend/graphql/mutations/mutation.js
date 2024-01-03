@@ -72,6 +72,10 @@ const mutation = new GraphQLObjectType({
             throw new Error("User not found");
           }
 
+          if (user.favourites.includes(shoeId)) {
+            return user.populate("favourites");
+          }
+
           user.favourites.push(shoeId);
           await user.save();
 

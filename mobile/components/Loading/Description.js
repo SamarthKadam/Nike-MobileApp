@@ -32,7 +32,7 @@ export default function Description({setLoginOpen,setSignupOpen}) {
       navigation.replace('HOME');
     } catch (error) {
       setIsLoggedIn(false);
-      console.error('Error:', error);
+      // console.error('Error:', error);
     }
   };
 
