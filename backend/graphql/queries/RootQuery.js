@@ -37,7 +37,7 @@ const RootQuery = new GraphQLObjectType({
       args:{id:{type:new GraphQLNonNull(GraphQLID)}},
       async resolve(parentValue,{id})
       {
-        return User.findById(id).populate('favourites').populate('cartItems');
+        return User.findById(id).populate('favourites').populate('cartItems.shoe');
       }
     },
   })

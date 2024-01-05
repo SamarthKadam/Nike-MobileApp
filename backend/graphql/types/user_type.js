@@ -7,6 +7,7 @@ const {
 } = graphql;
 const User=require('../../models/userModel');
 const ShoeType=require('../types/shoe_type');
+const CartType=require('../types/cart_type');
 
 const UserType=new GraphQLObjectType({
     name:'UserType',
@@ -23,7 +24,7 @@ const UserType=new GraphQLObjectType({
             type:new GraphQLList(ShoeType)
         },
         cartItems:{
-            type:new GraphQLList(ShoeType)
+            type:new GraphQLList(CartType)
         }
     })
 })

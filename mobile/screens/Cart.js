@@ -1,5 +1,5 @@
 import { ScrollView,StyleSheet} from 'react-native'
-import React from 'react'
+import React,{useState} from 'react'
 import Card from '../components/Cart/Card'
 import Info from '../components/Cart/Info'
 import { getPrice,toNumber,formatToPrice, generateRandomNumber} from '../helper'
@@ -8,7 +8,7 @@ import Button from '../components/Cart/Button'
 export default function Cart() {
 
 
-  const data=[      {
+   const[data,setData]=useState([{
     shoe:{
     id:"6581beb544d439dab8a2fe4a",
     "brand": "Reebok",
@@ -41,7 +41,7 @@ export default function Cart() {
     sizes: [6, 7, 8, 9, 10, 11, 12]
   },
   count:1
-  }]
+  }])
 
   const price1=toNumber(getPrice(data[0].shoe.price));
   const price2=toNumber(getPrice(data[1].shoe.price));
@@ -54,9 +54,30 @@ export default function Cart() {
     price+=numberPrice*value.count
   })
 
+  const onIncrement=(id,count)=>{
+
+    setData((data)=>{
+      const modifieddata=data.map((val)=>{
+        if(val.shoe===id)
+        return {...val,count:count}
+        else
+        return val;
+      })
+      return modifieddata;
+    })
+  }
+
+  const onDecrement=(id,count)=>{
+    console.log("decrement the shoe of id",id,"with count",count);
+  }
+
+  console.log(data);
+
+
+
   return (
     <ScrollView style={styles.screen}>
-      {data.map((val,index)=><Card key={index} data={val.shoe}></Card>)}
+      {data.map((val,index)=><Card onIncrement={onIncrement} onDecrement={onDecrement} count={val.count} key={index} data={val.shoe}></Card>)}
       <Info left='Subtotal' right={formatToPrice(price)}></Info>
       <Info left='Delivery' right={formatToPrice(1250)}></Info>
       <Info isDark={true} left='Estimated Total' right={formatToPrice(price+1250)} ></Info>

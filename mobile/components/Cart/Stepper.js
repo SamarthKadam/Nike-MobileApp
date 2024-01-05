@@ -3,34 +3,32 @@ import React,{useState,useEffect} from 'react'
 import Icon1 from 'react-native-vector-icons/Ionicons';
 
 
-export default function Stepper({onValueChange}) {
+export default function Stepper({shoeId,onIncrement,onDecrement,value}) {
 
-    const [value,setValue]=useState(0);
+    const [stepperValue,setValue]=useState(value);
     const increment = () => {
-        if(value<7)
+        if(stepperValue<7)
         {
-            setValue(value + 1);
+            onIncrement(shoeId,stepperValue+1);
+            setValue(stepperValue+1);
         }
       };
     
       const decrement = () => {
-        if (value > 0) {
-          setValue(value - 1);
+        if (stepperValue> 0) {
+          onDecrement(shoeId,stepperValue-1);
+          setValue(stepperValue-1);
         }
       };
-
-      useEffect(() => {
-        onValueChange(value);
-      }, [value, onValueChange]);
 
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={decrement}>
+      <Pressable onPress={()=>{decrement()}}>
         <Icon1 color="black" size={28} name="remove-circle-outline"></Icon1>
       </Pressable>
-      <Text style={styles.txt}>{value}</Text>
-      <Pressable onPress={increment}>
+      <Text style={styles.txt}>{stepperValue}</Text>
+      <Pressable onPress={()=>{increment()}}>
         <Icon1 color="black" size={28} name="add-circle-outline"></Icon1>
       </Pressable>
     </View>

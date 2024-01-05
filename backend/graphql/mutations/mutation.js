@@ -98,10 +98,32 @@ const mutation = new GraphQLObjectType({
             throw new Error("User not found");
           }
 
-          user.cartItems.push(shoeId);
+          user.cartItems.push({shoe:shoeId,count:1});
           await user.save();
 
-          return user.populate("cartItems");
+          return user.populate("cartItems.shoe");
+        } catch (err) {
+          throw new Error(err);
+        }
+      },
+    },
+    removeFromCart: {
+      type: UserType,
+      args: {
+        id: { type: GraphQLID },
+        shoeId: { type: GraphQLID },
+      },
+      async resolve(parentValue, { id, shoeId }) {
+        try {
+          const user = await User.findById(id);
+          if (!user) {
+            throw new Error("User not found");
+          }
+
+          user.cartItems=user.cartItems.filter((data)=>data.shoe!=shoeId)
+          await user.save();
+
+          return user.populate("cartItems.shoe");
         } catch (err) {
           throw new Error(err);
         }

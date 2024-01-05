@@ -1,61 +1,57 @@
-import { View,ScrollView, ToastAndroid, StyleSheet } from 'react-native'
-import { useEffect } from 'react'
-import React from 'react'
-import Gallery from '../components/Overview/Gallery'
-import BoldText from '../components/Overview/BoldText'
-import MdText from '../components/Overview/MdText'
-import LightText from '../components/Overview/LightText'
-import Description from '../components/Overview/Description'
-// import { data } from '../dummydata/bestseller'
-import HeaderRight from '../components/Shop/HeaderRight'
-import { Picker } from '../components/Overview/Picker'
-import Button from '../components/Overview/Button'
-import { useQuery, gql,useMutation} from '@apollo/client';
-import { ActivityIndicator } from 'react-native'
-import { useRoute } from '@react-navigation/native';
-import { useSelector,useDispatch} from 'react-redux'
-import { AddToFavourites } from '../store/actions/user/action'
-
+import {View, ScrollView, ToastAndroid, StyleSheet} from 'react-native';
+import {useEffect} from 'react';
+import React from 'react';
+import Gallery from '../components/Overview/Gallery';
+import BoldText from '../components/Overview/BoldText';
+import MdText from '../components/Overview/MdText';
+import LightText from '../components/Overview/LightText';
+import Description from '../components/Overview/Description';
+import HeaderRight from '../components/Shop/HeaderRight';
+import {Picker} from '../components/Overview/Picker';
+import Button from '../components/Overview/Button';
+import {useQuery, gql, useMutation} from '@apollo/client';
+import {ActivityIndicator} from 'react-native';
+import {useRoute} from '@react-navigation/native';
+import {useSelector, useDispatch} from 'react-redux';
+import {AddToFavourites} from '../store/actions/user/action';
 
 const SHOE_OVERVIEW_QUERY = gql`
   query ShoeOverview($id: ID!) {
     shoe(id: $id) {
-      id,
-      name,
-      brand,
-      gallery,
-      price,
+      id
+      name
+      brand
+      gallery
+      price
       description
     }
   }
 `;
 
-const ADDTOFAV_MUTATION=gql`
-mutation AddToFavourites( $id: ID!, $shoeId: ID!) {
-  addToFavourites(id: $id, shoeId: $shoeId) {
-    name
+const ADDTOFAV_MUTATION = gql`
+  mutation AddToFavourites($id: ID!, $shoeId: ID!) {
+    addToFavourites(id: $id, shoeId: $shoeId) {
+      name
+    }
   }
-}`;
-
+`;
 
 export default function Overview({navigation}) {
+  const dispatch = useDispatch();
+  const id = useSelector(state => state.user.id);
+  const favouriteId = useSelector(state => state.user.favourites);
+  const route = useRoute();
+  const {shoeId} = route.params;
+  useEffect(() => {
+    navigation.setOptions({headerRight: () => <HeaderRight></HeaderRight>});
+  }, []);
 
-  const dispatch=useDispatch();
-  const id=useSelector((state)=>state.user.id);
-  const favouriteId=useSelector((state)=>state.user.favourites);
-  const route=useRoute();
-  const { shoeId } = route.params;
-  useEffect(()=>{
-    navigation.setOptions({headerRight:()=><HeaderRight></HeaderRight>})
-  },[])
-
-  const { loading, error, data,refetch} = useQuery(SHOE_OVERVIEW_QUERY, {
-    variables: { id:shoeId },
+  const {loading, error, data, refetch} = useQuery(SHOE_OVERVIEW_QUERY, {
+    variables: {id: shoeId},
   });
 
-  const [addFavMutation,{loading:mutationLoading,data:mutationdata}] = useMutation(ADDTOFAV_MUTATION);
-
-
+  const [addFavMutation, {loading: mutationLoading, data: mutationdata}] =
+    useMutation(ADDTOFAV_MUTATION);
 
   if (loading) {
     return (
@@ -65,25 +61,24 @@ export default function Overview({navigation}) {
     );
   }
 
-  const showToast = (message) => {
+  const showToast = message => {
     ToastAndroid.show(message, ToastAndroid.SHORT);
   };
 
-  const ADDTOFAVOURTIES=async()=>{
-
-    if(favouriteId.includes(shoeId))
-     return showToast('Already in Favourites !');
+  const ADDTOFAVOURTIES = async () => {
+    if (favouriteId.includes(shoeId))
+      return showToast('Already in Favourites !');
 
     try {
-      const { data } = await addFavMutation({
-      variables: { id, shoeId },
-    });
+      const {data} = await addFavMutation({
+        variables: {id, shoeId},
+      });
       dispatch(AddToFavourites(shoeId));
       showToast('Added To Favourites !');
-      } catch (error) {
+    } catch (error) {
       console.error('Error:', error);
-      }
-  }
+    }
+  };
 
   return (
     <ScrollView style={styles.screen}>
@@ -91,48 +86,57 @@ export default function Overview({navigation}) {
       <View style={styles.btmContainer}>
         <MdText title={`${data.shoe.brand}Shoes`}></MdText>
         <BoldText title={data.shoe.name}></BoldText>
-        <MdText style={styles.mdTextStyle} title='MRP : ₹ 8,685.00'></MdText>
-        <LightText title='Incl of taxes (Also includes all applicable duties)'></LightText>
+        <MdText style={styles.mdTextStyle} title="MRP : ₹ 8,685.00"></MdText>
+        <LightText title="Incl of taxes (Also includes all applicable duties)"></LightText>
         <Description description={data.shoe.description}></Description>
-        <View style={{marginBottom:10}}>
-        <LightText title='View Product Details'></LightText>
+        <View style={{marginBottom: 10}}>
+          <LightText title="View Product Details"></LightText>
         </View>
-        <Picker></Picker>   
-        <Button btnStyle={styles.button1Container} txtStyle={styles.button1txt} title={'Add to Bag'} ></Button>
-        <Button onPress={ADDTOFAVOURTIES} isColored={favouriteId.includes(shoeId)} isfav={1} btnStyle={styles.button2Container} txtStyle={styles.button2txt} title={'Favourite '} ></Button>
+        <Picker></Picker>
+        <Button
+          btnStyle={styles.button1Container}
+          txtStyle={styles.button1txt}
+          title={'Add to Bag'}></Button>
+        <Button
+          onPress={ADDTOFAVOURTIES}
+          isColored={favouriteId.includes(shoeId)}
+          isfav={1}
+          btnStyle={styles.button2Container}
+          txtStyle={styles.button2txt}
+          title={'Favourite '}></Button>
       </View>
     </ScrollView>
-  )
+  );
 }
 
-const styles=StyleSheet.create({
-   screen:{
-    flex:1,
-    backgroundColor:'white'
-   },
-   btmContainer:{
-    paddingHorizontal:10,
-   },
-   mdTextStyle:{
-    marginTop:10
-   },
-   button1Container:{
-    backgroundColor:'black',
-    marginVertical:10
-   },
-   button2Container:{
-    borderWidth:1,
-    marginVertical:10
-   },
-   button2txt:{
-    color:'black'
-   },
-   button1txt:{
-    color:'white'
-   },
-   loading: {
+const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    backgroundColor: 'white',
+  },
+  btmContainer: {
+    paddingHorizontal: 10,
+  },
+  mdTextStyle: {
+    marginTop: 10,
+  },
+  button1Container: {
+    backgroundColor: 'black',
+    marginVertical: 10,
+  },
+  button2Container: {
+    borderWidth: 1,
+    marginVertical: 10,
+  },
+  button2txt: {
+    color: 'black',
+  },
+  button1txt: {
+    color: 'white',
+  },
+  loading: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  }
-})
+  },
+});
