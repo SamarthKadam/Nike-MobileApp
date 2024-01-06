@@ -6,10 +6,10 @@ const width=Dimensions.get('screen').width;
 
 export default function Card({data,onIncrement,count,onDecrement}) {
 
-const [stepperValue, setStepperValue] = useState(0);
-  const handleValueChange = (value) => {
-    setStepperValue(value);
-  };
+// const [stepperValue, setStepperValue] = useState(0);
+//   const handleValueChange = (value) => {
+//     setStepperValue(value);
+//   };
 
 
   return (
@@ -23,7 +23,7 @@ const [stepperValue, setStepperValue] = useState(0);
      </View>
      <View style={styles.btmContainer}>
         <View style={{width:'20%'}}>
-        <Stepper shoeId={data.id} value={count} onIncrement={onIncrement} onDecrement={onDecrement} onValueChange={handleValueChange}></Stepper>
+        <Stepper shoeId={data.id} value={count} onIncrement={onIncrement} onDecrement={onDecrement}></Stepper>
         </View>
         <View>
         <Text style={[styles.darktxt,{textAlign:"right"}]}>MRP:₹ {data.price}</Text>

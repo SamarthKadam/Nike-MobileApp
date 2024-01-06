@@ -43,8 +43,8 @@ export default function Cart() {
   count:1
   }])
 
-  const price1=toNumber(getPrice(data[0].shoe.price));
-  const price2=toNumber(getPrice(data[1].shoe.price));
+  // const price1=toNumber(getPrice(data[0].shoe.price));
+  // const price2=toNumber(getPrice(data[1].shoe.price));
   // console.log(formatToPrice(price1+price2))
 
 
@@ -56,9 +56,12 @@ export default function Cart() {
 
   const onIncrement=(id,count)=>{
 
+    if(count>=7)
+    return;
+
     setData((data)=>{
       const modifieddata=data.map((val)=>{
-        if(val.shoe===id)
+        if(val.shoe.id===id)
         return {...val,count:count}
         else
         return val;
@@ -68,12 +71,25 @@ export default function Cart() {
   }
 
   const onDecrement=(id,count)=>{
-    console.log("decrement the shoe of id",id,"with count",count);
+
+    if(count==0)
+    {
+      setData((data)=>{
+        const modifieddata=data.filter((val)=>val.shoe.id!==id)
+        return modifieddata;
+      });
+      return;
+    }
+    setData((data)=>{
+      const modifieddata=data.map((val)=>{
+        if(val.shoe.id===id)
+        return {...val,count:count}
+        else
+        return val;
+      })
+      return modifieddata;
+    })
   }
-
-  console.log(data);
-
-
 
   return (
     <ScrollView style={styles.screen}>

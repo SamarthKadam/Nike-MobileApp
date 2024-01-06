@@ -5,30 +5,13 @@ import Icon1 from 'react-native-vector-icons/Ionicons';
 
 export default function Stepper({shoeId,onIncrement,onDecrement,value}) {
 
-    const [stepperValue,setValue]=useState(value);
-    const increment = () => {
-        if(stepperValue<7)
-        {
-            onIncrement(shoeId,stepperValue+1);
-            setValue(stepperValue+1);
-        }
-      };
-    
-      const decrement = () => {
-        if (stepperValue> 0) {
-          onDecrement(shoeId,stepperValue-1);
-          setValue(stepperValue-1);
-        }
-      };
-
-
   return (
     <View style={styles.container}>
-      <Pressable onPress={()=>{decrement()}}>
+      <Pressable onPress={()=>{onDecrement(shoeId,value-1)}}>
         <Icon1 color="black" size={28} name="remove-circle-outline"></Icon1>
       </Pressable>
-      <Text style={styles.txt}>{stepperValue}</Text>
-      <Pressable onPress={()=>{increment()}}>
+      <Text style={styles.txt}>{value}</Text>
+      <Pressable onPress={()=>{onIncrement(shoeId,value+1)}}>
         <Icon1 color="black" size={28} name="add-circle-outline"></Icon1>
       </Pressable>
     </View>
