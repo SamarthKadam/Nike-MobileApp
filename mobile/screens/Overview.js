@@ -86,7 +86,7 @@ export default function Overview({navigation}) {
       <View style={styles.btmContainer}>
         <MdText title={`${data.shoe.brand}Shoes`}></MdText>
         <BoldText title={data.shoe.name}></BoldText>
-        <MdText style={styles.mdTextStyle} title="MRP : ₹ 8,685.00"></MdText>
+        <MdText style={styles.mdTextStyle} title={`MRP : ₹ ${data.shoe.price}.00`}></MdText>
         <LightText title="Incl of taxes (Also includes all applicable duties)"></LightText>
         <Description description={data.shoe.description}></Description>
         <View style={{marginBottom: 10}}>
