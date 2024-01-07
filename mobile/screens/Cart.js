@@ -1,9 +1,10 @@
-import { ScrollView,StyleSheet} from 'react-native'
+import { ScrollView,StyleSheet,View,Text} from 'react-native'
 import React,{useState} from 'react'
 import Card from '../components/Cart/Card'
 import Info from '../components/Cart/Info'
 import { getPrice,toNumber,formatToPrice, generateRandomNumber} from '../helper'
 import Button from '../components/Cart/Button'
+import Empty from '../components/Cart/Empty'
 
 export default function Cart() {
 
@@ -46,6 +47,9 @@ export default function Cart() {
   // const price1=toNumber(getPrice(data[0].shoe.price));
   // const price2=toNumber(getPrice(data[1].shoe.price));
   // console.log(formatToPrice(price1+price2))
+
+  if(data.length===0)
+  return <Empty></Empty>
 
 
   let price=0;
@@ -90,6 +94,8 @@ export default function Cart() {
       return modifieddata;
     })
   }
+
+
 
   return (
     <ScrollView style={styles.screen}>

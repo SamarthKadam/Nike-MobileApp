@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Image} from 'react-native'
 import React from 'react'
-import { data } from '../../dummydata/bestseller'
 import { Dimensions } from 'react-native'
 import {FlatListSlider} from 'react-native-flatlist-slider';
 const width=Dimensions.get('window').width;
@@ -17,7 +16,7 @@ export default function Gallery({images}) {
     <View style={styles.container} >
       {/* <Image style={styles.img} source={{uri:images[0]}}></Image> */}
       <FlatListSlider    indicatorActiveColor={'#000000'}
-    indicatorInActiveColor={'#D4D4D4'} onPress={()=>{console.log("clicked")}} contentContainerStyle={styles.sliderContentContainer} width={width} height={170} autoscroll={false} data={modifiedImages}></FlatListSlider>
+    indicatorInActiveColor={'#D4D4D4'} onPress={()=>{console.log("clicked")}} contentContainerStyle={styles.sliderContentContainer} width={width} height={170} autoscroll={false} data={modifiedImages} ></FlatListSlider>
     </View>
   )
 }

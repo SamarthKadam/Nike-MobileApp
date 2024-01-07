@@ -84,7 +84,7 @@ export default function Overview({navigation}) {
     <ScrollView style={styles.screen}>
       <Gallery images={data.shoe.gallery}></Gallery>
       <View style={styles.btmContainer}>
-        <MdText title={`${data.shoe.brand}Shoes`}></MdText>
+        <MdText title={`${data.shoe.brand} Shoes`}></MdText>
         <BoldText title={data.shoe.name}></BoldText>
         <MdText style={styles.mdTextStyle} title={`MRP : ₹ ${data.shoe.price}.00`}></MdText>
         <LightText title="Incl of taxes (Also includes all applicable duties)"></LightText>
