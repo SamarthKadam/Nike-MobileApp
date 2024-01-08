@@ -1,59 +1,75 @@
 import { ScrollView,StyleSheet,View,Text} from 'react-native'
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import Card from '../components/Cart/Card'
 import Info from '../components/Cart/Info'
 import { getPrice,toNumber,formatToPrice, generateRandomNumber} from '../helper'
 import Button from '../components/Cart/Button'
 import Empty from '../components/Cart/Empty'
+import {useQuery, gql, useMutation} from '@apollo/client';
+import {useSelector} from 'react-redux'
+import { ActivityIndicator } from 'react-native-paper';
+import { useIsFocused } from '@react-navigation/native';
+
+const CARTITEMS_QUERY = gql`
+  query getCartItems($id: ID!) {
+    userInfo(id: $id) {
+      cartItems{
+        count,
+        shoe{
+          id,
+          name,
+          brand,
+          description,
+          gallery,
+          price,
+          sizes
+        }
+      }
+    }
+  }
+`;
 
 export default function Cart() {
 
+  const id=useSelector((state)=>state.user.id);
+  const isFocused=useIsFocused();
+  const {loading, error, data, refetch} = useQuery(CARTITEMS_QUERY, {
+    variables: {id: id},
+  });
 
-   const[data,setData]=useState([{
-    shoe:{
-    id:"6581beb544d439dab8a2fe4a",
-    "brand": "Reebok",
-    "name": "Run Gazele Running Shoes For Men",
-    "description": "The Reebok Run Gazele Running Shoes for Men are the ultimate choice for runners and active individuals. These shoes offer a perfect combination of style and performance. With their dynamic design and vibrant flair, they are sure to turn heads.",
-    "gallery": [
-      "https://i.ibb.co/1nQczs5/reebok1.png",
-      "https://i.ibb.co/0yQJgXD/reebok2.png",
-      "https://i.ibb.co/QfbxNM3/reebok3.png",
-      "https://i.ibb.co/QJDLL11/reebok4.png"
-    ],
-    "price": "2,371",
-    "sizes": [6, 7, 8, 9, 10, 11, 12]
-  },
-  count:1
-  },
-  {
-    shoe:{
-    id:"6581bea544d439dab8a2fe40",
-    brand: "Puma",
-    name: "Flair 2 Running Shoes For Men",
-    description: "The PUMA Flair 2 Running Shoes for Men are the ultimate choice for runners and active individuals. These shoes offer a perfect combination of style and performance. With their dynamic design and vibrant flair, they are sure to turn heads. ",
-    gallery: [
-      "https://i.ibb.co/MnmqW2R/puma1.png",
-      "https://i.ibb.co/jWsmMGL/puma2.png",
-      "https://i.ibb.co/G3rKWxH/puma3.png",
-      "https://i.ibb.co/LRkjRky/puma4.png"
-    ],
-    price: "1,499",
-    sizes: [6, 7, 8, 9, 10, 11, 12]
-  },
-  count:1
-  }])
+   const[cartItems,setCartItems]=useState([])
 
-  // const price1=toNumber(getPrice(data[0].shoe.price));
-  // const price2=toNumber(getPrice(data[1].shoe.price));
-  // console.log(formatToPrice(price1+price2))
+  useEffect(()=>{
+    if(data===undefined)
+    return;
+    setCartItems(data.userInfo.cartItems);
+  },[data])
 
-  if(data.length===0)
+  useEffect(()=>{
+    if(isFocused)
+    {
+      if(data===undefined)
+      return
+      refetch()
+      setCartItems(data.userInfo.cartItems);
+    }
+  },[isFocused,data])
+
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator color="black" size="small" />
+      </View>
+    );
+  }
+
+  if(cartItems.length===0)
   return <Empty></Empty>
 
 
   let price=0;
-  const totalPrice=data.forEach((value)=>{
+  const totalPrice=cartItems.forEach((value)=>{
     const numberPrice=toNumber(getPrice(value.shoe.price));
     price+=numberPrice*value.count
   })
@@ -63,7 +79,7 @@ export default function Cart() {
     if(count>=7)
     return;
 
-    setData((data)=>{
+    setCartItems((data)=>{
       const modifieddata=data.map((val)=>{
         if(val.shoe.id===id)
         return {...val,count:count}
@@ -78,13 +94,13 @@ export default function Cart() {
 
     if(count==0)
     {
-      setData((data)=>{
+      setCartItems((data)=>{
         const modifieddata=data.filter((val)=>val.shoe.id!==id)
         return modifieddata;
       });
       return;
     }
-    setData((data)=>{
+    setCartItems((data)=>{
       const modifieddata=data.map((val)=>{
         if(val.shoe.id===id)
         return {...val,count:count}
@@ -99,7 +115,7 @@ export default function Cart() {
 
   return (
     <ScrollView style={styles.screen}>
-      {data.map((val,index)=><Card onIncrement={onIncrement} onDecrement={onDecrement} count={val.count} key={index} data={val.shoe}></Card>)}
+      {cartItems.map((val,index)=><Card onIncrement={onIncrement} onDecrement={onDecrement} count={val.count} key={index} data={val.shoe}></Card>)}
       <Info left='Subtotal' right={formatToPrice(price)}></Info>
       <Info left='Delivery' right={formatToPrice(1250)}></Info>
       <Info isDark={true} left='Estimated Total' right={formatToPrice(price+1250)} ></Info>
@@ -115,4 +131,9 @@ const styles=StyleSheet.create({
    backgroundColor:'white',
    paddingHorizontal:18
   },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
 })
