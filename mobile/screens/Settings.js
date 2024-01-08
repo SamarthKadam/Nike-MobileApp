@@ -19,6 +19,9 @@ import {Dimensions} from 'react-native';
 import Ripple from 'react-native-material-ripple';
 import {useQuery, gql, useMutation} from '@apollo/client';
 import {useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 
 const width = Dimensions.get('screen').width;
 
@@ -44,10 +47,21 @@ export default function Settings() {
   const dispatch = useDispatch();
   const id = useSelector(state => state.user.id);
   const isFocused = useIsFocused();
+  const navigation=useNavigation();
 
   const showToast = message => {
     ToastAndroid.show(message, ToastAndroid.SHORT);
   };
+
+  const storeData = async (value) => {
+    try {
+      const jsonValue = JSON.stringify(value);
+      await AsyncStorage.setItem('jwt', jsonValue);
+    } catch (e) {
+      console.log("ERROR",e);
+    }
+  };
+
 
   const {loading, error, data, refetch} = useQuery(INFO_QUERY, {
     variables: {id: id},
@@ -110,6 +124,11 @@ export default function Settings() {
     showToast("Successfully updated Address!");
   };
 
+  const LogoutHandler=()=>{
+   storeData('thisissomerandommessage');
+   navigation.dispatch(StackActions.replace("LOADING"));
+  }
+
   return (
     <View style={styles.container}>
       <Info val="Name" ans={data.userInfo.name}></Info>
@@ -167,7 +186,7 @@ export default function Settings() {
       <View style={styles.gap}></View>
       <Ripple
         onPress={() => {
-          console.log('Logout');
+          LogoutHandler();
         }}
         style={styles.btnContainer}>
         <Text style={{color: 'red'}}>Log Out</Text>
