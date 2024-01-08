@@ -178,6 +178,20 @@ const mutation = new GraphQLObjectType({
         }
       },
     },
+    addAddressDetails:{
+      type:UserType,
+      args: {
+        id: { type: GraphQLID },
+        value: { type: GraphQLString},
+      },
+    async resolve(parentValue,{id,value}){
+
+       const user=await User.findById(id);
+       user.shippingAddress=value;
+       await user.save();
+       return user;
+      }
+    }
   },
 });
 

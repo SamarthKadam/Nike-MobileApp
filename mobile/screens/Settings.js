@@ -1,4 +1,11 @@
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  ActivityIndicator,
+  ToastAndroid
+} from 'react-native';
 import React, {useState} from 'react';
 import {useIsFocused} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
@@ -10,12 +17,44 @@ import {Chip} from 'react-native-paper';
 import {IconButton} from 'react-native-paper';
 import {Dimensions} from 'react-native';
 import Ripple from 'react-native-material-ripple';
+import {useQuery, gql, useMutation} from '@apollo/client';
+import {useSelector} from 'react-redux';
 
 const width = Dimensions.get('screen').width;
 
+const INFO_QUERY = gql`
+  query getData($id: ID!) {
+    userInfo(id: $id) {
+      name
+      email
+      shippingAddress
+    }
+  }
+`;
+
+const ADD_ADDRESS_MUTATION = gql`
+  mutation AddAddress($id: ID!, $value: String!) {
+    addAddressDetails(id: $id, value: $value) {
+      shippingAddress
+    }
+  }
+`;
+
 export default function Settings() {
   const dispatch = useDispatch();
+  const id = useSelector(state => state.user.id);
   const isFocused = useIsFocused();
+
+  const showToast = message => {
+    ToastAndroid.show(message, ToastAndroid.SHORT);
+  };
+
+  const {loading, error, data, refetch} = useQuery(INFO_QUERY, {
+    variables: {id: id},
+  });
+
+  const [addressMutation, {loading: loadingmutation, data: datamutation}] =useMutation(ADD_ADDRESS_MUTATION);
+
   useEffect(() => {
     if (isFocused) dispatch(SetShopScreen(false));
   }, [isFocused]);
@@ -27,20 +66,54 @@ export default function Settings() {
     if (inputValue.length !== 0) setSubmitted(true);
   }, []);
 
+  useEffect(() => {
+    if (data===undefined) return;
+    if (data.userInfo.shippingAddress === null)
+    {
+      setInputValue('');
+    }
+    else
+    {
+      setSubmitted(true);
+      setInputValue(data.userInfo.shippingAddress);
+    }
+  }, [data]);
+
+  if (loading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator color="black" size="large" />
+      </View>
+    );
+  }
+
   const onChangeInput = value => {
     setInputValue(value);
   };
 
+  const AddAddressDetailsHandler = async () => {
+    try {
+      const {data} = await addressMutation({
+        variables: {id, value:inputValue},
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   const verifyInput = () => {
     if (inputValue.length === 0) return;
+
+    AddAddressDetailsHandler();
     setAddressInput(false);
     setSubmitted(true);
+    showToast("Successfully updated Address!");
   };
 
   return (
     <View style={styles.container}>
-      <Info val="Name" ans="Samarth Kadam"></Info>
-      <Info val="Email" ans="samarthskadam14@gmail.com"></Info>
+      <Info val="Name" ans={data.userInfo.name}></Info>
+      <Info val="Email" ans={data.userInfo.email}></Info>
       {!submitted && (
         <View style={styles.inputcontainer}>
           <Text style={styles.input}>Address</Text>
@@ -67,7 +140,9 @@ export default function Settings() {
             )}
             textStyle={{color: 'black'}}
             style={styles.chip}>
-            {inputValue.length>21?inputValue.substring(0, 21)+'..':inputValue}
+            {inputValue.length > 21
+              ? inputValue.substring(0, 21) + '..'
+              : inputValue}
           </Chip>
         </View>
       )}
@@ -105,7 +180,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
     paddingVertical: 12,
-    // paddingHorizontal:8
   },
   input: {
     color: 'black',
@@ -139,5 +213,10 @@ const styles = StyleSheet.create({
     height: 40,
     borderBottomWidth: 1,
     borderBottomColor: '#ADADAD',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
