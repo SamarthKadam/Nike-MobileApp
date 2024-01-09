@@ -6,6 +6,7 @@ import { Dimensions } from 'react-native';
 const width=Dimensions.get('screen').width;
 
 export const Picker = ({ title, onPress, btnStyle, txtStyle }) => {
+
   const [selectedValue, setSelectedValue] = useState(null);
   const items = [
     { label: '6 UK', value: '6' },
@@ -31,7 +32,10 @@ export const Picker = ({ title, onPress, btnStyle, txtStyle }) => {
       }}
       activeLabelStyle={{fontWeight:'600'}}
         itemStyle={{justifyContent: 'flex-start'}}
-        onChangeItem={(item) => setSelectedValue(item.value)}
+        onChangeItem={(item) =>{
+          setSelectedValue(item.value)
+          onPress(item.value)
+        }}
       />
     </View>
   );

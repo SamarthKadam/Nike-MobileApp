@@ -4,7 +4,7 @@ import { Dimensions } from 'react-native'
 import Stepper from './Stepper';
 const width=Dimensions.get('screen').width;
 
-export default function Card({data,onIncrement,count,onDecrement}) {
+export default function Card({data,onIncrement,count,onDecrement,size}) {
 
 // const [stepperValue, setStepperValue] = useState(0);
 //   const handleValueChange = (value) => {
@@ -18,7 +18,7 @@ export default function Card({data,onIncrement,count,onDecrement}) {
      <View style={styles.imgContainer}><Image style={styles.img} source={{uri:data.gallery[0]}}></Image></View>
      <View style={styles.txtContainer}>
         <Text style={[styles.darktxt,{color:'black'}]}>{data.brand.trim()} {data.name}</Text>
-        <Text style={{color:'grey',marginTop:4}}>Size 7</Text>
+        <Text style={{color:'grey',marginTop:4}}>Size {size}</Text>
      </View>
      </View>
      <View style={styles.btmContainer}>

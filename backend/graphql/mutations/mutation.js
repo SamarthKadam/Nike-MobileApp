@@ -88,15 +88,16 @@ const mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLID },
         shoeId: { type: GraphQLID },
+        size:{type:graphql.GraphQLInt}
       },
-      async resolve(parentValue, { id, shoeId }) {
+      async resolve(parentValue, { id, shoeId,size}) {
         try {
           const user = await User.findById(id);
           if (!user) {
             throw new Error("User not found");
           }
 
-          user.cartItems.push({ shoe: shoeId, count: 1 });
+          user.cartItems.push({ shoe: shoeId, count: 1,size});
           await user.save();
 
           return user.populate("cartItems.shoe");
@@ -133,7 +134,7 @@ const mutation = new GraphQLObjectType({
         id: { type: GraphQLID },
         shoeId: { type: GraphQLID },
       },
-      async resolve(parentValue, { id, shoeId }) {
+      async resolve(parentValue, { id, shoeId}) {
         try {
           const user = await User.findById(id);
           if (!user) {

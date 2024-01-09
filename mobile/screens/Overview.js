@@ -1,5 +1,5 @@
 import {View, ScrollView, ToastAndroid, StyleSheet} from 'react-native';
-import {useEffect} from 'react';
+import {useEffect,useState} from 'react';
 import React from 'react';
 import Gallery from '../components/Overview/Gallery';
 import BoldText from '../components/Overview/BoldText';
@@ -37,15 +37,14 @@ const ADDTOFAV_MUTATION = gql`
 `;
 
 const ADDTOCART_MUTATION=gql`
-mutation AddToCart($id: ID!, $shoeId: ID!) {
-  addToCart(id:$id,shoeId:$shoeId){
+mutation AddToCart($id: ID!, $shoeId: ID!,$size: Int!) {
+  addToCart(id:$id,shoeId:$shoeId,size:$size){
     name,
     cartItems{
       shoe {
         id,
         name
-      },
-      count
+      }
     }
   }
 }`
@@ -57,6 +56,7 @@ export default function Overview({navigation}) {
   const cartId=useSelector(state=>state.user.cartItems)
   const route = useRoute();
   const {shoeId} = route.params;
+  const [size,setSize]=useState(0);
   useEffect(() => {
     navigation.setOptions({headerRight: () => <HeaderRight></HeaderRight>});
   }, []);
@@ -101,15 +101,22 @@ export default function Overview({navigation}) {
     if (cartId.includes(shoeId))
     return showToast('Already in Cart!');
 
+    if(size==0)
+    return showToast('Please Select the Size');
+
   try {
     const {data} = await addCartMutation({
-      variables: {id, shoeId},
+      variables: {id, shoeId,size},
     });
     dispatch(AddToCartItems(shoeId));
     showToast('Added To Cart !');
   } catch (error) {
     console.error('Error:', error);
   }
+  }
+
+  const SizeHandler=(val)=>{
+    setSize(Number(val));
   }
 
   return (
@@ -124,7 +131,7 @@ export default function Overview({navigation}) {
         <View style={{marginBottom: 10}}>
           <LightText title="View Product Details"></LightText>
         </View>
-        <Picker></Picker>
+        <Picker onPress={SizeHandler}></Picker>
         <Button
         onPress={ADDTOCART}
           btnStyle={styles.button1Container}

@@ -16,6 +16,7 @@ const CARTITEMS_QUERY = gql`
     userInfo(id: $id) {
       cartItems{
         count,
+        size,
         shoe{
           id,
           name,
@@ -118,7 +119,7 @@ export default function Cart() {
   return (
     <View style={styles.screen}>
       <ScrollView>
-      {cartItems.map((val,index)=><Card onIncrement={onIncrement} onDecrement={onDecrement} count={val.count} key={index} data={val.shoe}></Card>)}
+      {cartItems.map((val,index)=><Card onIncrement={onIncrement} onDecrement={onDecrement} size={val.size} count={val.count} key={index} data={val.shoe}></Card>)}
       </ScrollView>
       <Info left='Subtotal' right={formatToPrice(price)}></Info>
       <Info left='Delivery' right={formatToPrice(1250)}></Info>

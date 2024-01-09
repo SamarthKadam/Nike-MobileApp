@@ -8,6 +8,7 @@ const CartItemType = new GraphQLObjectType({
   fields: () => ({
     shoe: { type: ShoeType },
     count: { type: GraphQLInt },
+    size:{type:GraphQLInt}
   }),
 });
 
