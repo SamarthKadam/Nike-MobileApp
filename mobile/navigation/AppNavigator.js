@@ -7,6 +7,7 @@ import Results from '../screens/Results';
 import Overview from '../screens/Overview';
 import Cart from '../screens/Cart';
 import Search from '../screens/Search';
+import OrderConfirmed from '../screens/OrderConfirmed';
 const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
   return (
@@ -33,6 +34,11 @@ export default function AppNavigator() {
           name="Search"
           options={{headerShown: false, animation:"fade"}}
           component={Search}
+        />
+          <Stack.Screen
+          name="OrderConfirmed"
+          options={{headerShown: false, animation:"fade"}}
+          component={OrderConfirmed}
         />
 
       </Stack.Navigator>

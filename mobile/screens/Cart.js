@@ -1,4 +1,4 @@
-import { ScrollView,StyleSheet,View,Text} from 'react-native'
+import { StyleSheet,View,ScrollView, useAnimatedValue} from 'react-native'
 import React,{useEffect, useState} from 'react'
 import Card from '../components/Cart/Card'
 import Info from '../components/Cart/Info'
@@ -9,6 +9,7 @@ import {useQuery, gql, useMutation} from '@apollo/client';
 import {useSelector} from 'react-redux'
 import { ActivityIndicator } from 'react-native-paper';
 import { useIsFocused } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 const CARTITEMS_QUERY = gql`
   query getCartItems($id: ID!) {
@@ -31,6 +32,7 @@ const CARTITEMS_QUERY = gql`
 
 export default function Cart() {
 
+  const navigation=useNavigation();
   const id=useSelector((state)=>state.user.id);
   const isFocused=useIsFocused();
   const {loading, error, data, refetch} = useQuery(CARTITEMS_QUERY, {
@@ -114,13 +116,15 @@ export default function Cart() {
 
 
   return (
-    <ScrollView style={styles.screen}>
+    <View style={styles.screen}>
+      <ScrollView>
       {cartItems.map((val,index)=><Card onIncrement={onIncrement} onDecrement={onDecrement} count={val.count} key={index} data={val.shoe}></Card>)}
+      </ScrollView>
       <Info left='Subtotal' right={formatToPrice(price)}></Info>
       <Info left='Delivery' right={formatToPrice(1250)}></Info>
       <Info isDark={true} left='Estimated Total' right={formatToPrice(price+1250)} ></Info>
-      <Button onPress={()=>{}} title='Checkout'></Button>
-    </ScrollView>
+      <Button onPress={()=>{navigation.navigate("OrderConfirmed")}} title='Checkout'></Button>
+    </View>
   )
 }
 

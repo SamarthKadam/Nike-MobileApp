@@ -13,7 +13,7 @@ import {useQuery, gql, useMutation} from '@apollo/client';
 import {ActivityIndicator} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import {AddToFavourites} from '../store/actions/user/action';
+import {AddToFavourites,AddToCartItems} from '../store/actions/user/action';
 
 const SHOE_OVERVIEW_QUERY = gql`
   query ShoeOverview($id: ID!) {
@@ -36,10 +36,25 @@ const ADDTOFAV_MUTATION = gql`
   }
 `;
 
+const ADDTOCART_MUTATION=gql`
+mutation AddToCart($id: ID!, $shoeId: ID!) {
+  addToCart(id:$id,shoeId:$shoeId){
+    name,
+    cartItems{
+      shoe {
+        id,
+        name
+      },
+      count
+    }
+  }
+}`
+
 export default function Overview({navigation}) {
   const dispatch = useDispatch();
   const id = useSelector(state => state.user.id);
   const favouriteId = useSelector(state => state.user.favourites);
+  const cartId=useSelector(state=>state.user.cartItems)
   const route = useRoute();
   const {shoeId} = route.params;
   useEffect(() => {
@@ -52,6 +67,8 @@ export default function Overview({navigation}) {
 
   const [addFavMutation, {loading: mutationLoading, data: mutationdata}] =
     useMutation(ADDTOFAV_MUTATION);
+
+  const [addCartMutation,{loading:cartmutationLoading,data:cartmutationdata}]=useMutation(ADDTOCART_MUTATION)
 
   if (loading) {
     return (
@@ -80,6 +97,21 @@ export default function Overview({navigation}) {
     }
   };
 
+  const ADDTOCART=async()=>{
+    if (cartId.includes(shoeId))
+    return showToast('Already in Cart!');
+
+  try {
+    const {data} = await addCartMutation({
+      variables: {id, shoeId},
+    });
+    dispatch(AddToCartItems(shoeId));
+    showToast('Added To Cart !');
+  } catch (error) {
+    console.error('Error:', error);
+  }
+  }
+
   return (
     <ScrollView style={styles.screen}>
       <Gallery images={data.shoe.gallery}></Gallery>
@@ -94,6 +126,7 @@ export default function Overview({navigation}) {
         </View>
         <Picker></Picker>
         <Button
+        onPress={ADDTOCART}
           btnStyle={styles.button1Container}
           txtStyle={styles.button1txt}
           title={'Add to Bag'}></Button>

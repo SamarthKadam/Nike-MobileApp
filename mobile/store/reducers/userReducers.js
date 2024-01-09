@@ -1,7 +1,8 @@
 const userState = {
     name:null,
     id:null,
-    favourites:[]
+    favourites:[],
+    cartItems:[]
 };
     
     const userReducer = (state = userState, action) => {
@@ -20,10 +21,22 @@ const userState = {
             favourites:action.payload
           }
 
+        case "INITIALIZE_CARTITEMS":
+          return {
+            ...state,
+            cartItems:action.payload
+          }
+
         case "ADD_TO_FAVOURITES":
           return {
             ...state,
             favourites:[...state.favourites,action.payload]
+          }
+
+        case "ADD_TO_CARTITEMS":
+          return {
+            ...state,
+            cartItems:[...state.cartItems,action.payload]
           }
 
         default:

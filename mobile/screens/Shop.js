@@ -10,13 +10,19 @@ import { SetShopScreen } from '../store/actions/ui/action'
 import { useEffect } from 'react'
 import { useQuery, gql,useMutation} from '@apollo/client';
 import { useSelector } from 'react-redux'
-import { InitializeFavourites } from '../store/actions/user/action'
+import { InitializeFavourites,InitializeCartItems} from '../store/actions/user/action'
 
 const GET_FAVOURITES_QUERY = gql`
   query getFavourites($id: ID!) {
     userInfo(id: $id) {
       favourites {
         id,
+      },
+      cartItems{
+        shoe {
+          id,
+        },
+        count
       }
     }
   }
@@ -38,6 +44,7 @@ export default function Shop() {
     if(data===undefined)
     return
 
+    dispatch(InitializeCartItems(data.userInfo.cartItems));
     dispatch(InitializeFavourites(data.userInfo.favourites));
   },[data])
 

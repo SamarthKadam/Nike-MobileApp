@@ -14,9 +14,25 @@ export const InitializeFavourites=(value)=>{
     }
 }
 
+export const InitializeCartItems=(value)=>{
+
+    const data=value.map((val)=>val.shoe.id);
+    return {
+        type:"INITIALIZE_CARTITEMS",
+        payload:data
+    }
+}
+
 export const AddToFavourites=(value)=>{
     return {
         type:"ADD_TO_FAVOURITES",
+        payload:value
+    }
+}
+
+export const AddToCartItems=(value)=>{
+    return {
+        type:"ADD_TO_CARTITEMS",
         payload:value
     }
 }
