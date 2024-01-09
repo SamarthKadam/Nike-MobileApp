@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   button: {
     borderRadius: 50, // Half of the width/height for a circle effect
     padding: 3,
+    position:'relative',
     overflow: 'hidden', // Ensure ripple effect stays within the bounds of the button
   },
 });

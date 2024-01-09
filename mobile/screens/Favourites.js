@@ -8,6 +8,7 @@ import { SetShopScreen } from '../store/actions/ui/action';
 import { useQuery, gql,useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux'
 import { ActivityIndicator } from 'react-native';
+import { RemoveFromFavourites } from '../store/actions/user/action';
 const width=Dimensions.get('screen').width;
 const GET_FAVOURITES_QUERY = gql`
   query getFavourites($id: ID!) {
@@ -84,6 +85,7 @@ export default function Favourites({navigation}) {
       variables: { id, shoeId },
       });
       showToast();
+      dispatch(RemoveFromFavourites(shoeId));
       } catch (error) {
       console.error('Error:', error);
       }

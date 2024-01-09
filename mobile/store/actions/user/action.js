@@ -30,9 +30,23 @@ export const AddToFavourites=(value)=>{
     }
 }
 
+export const RemoveFromFavourites=(value)=>{
+    return {
+        type:"REMOVE_FROM_FAVOURITES",
+        payload:value
+    }
+}
+
 export const AddToCartItems=(value)=>{
     return {
         type:"ADD_TO_CARTITEMS",
+        payload:value
+    }
+}
+
+export const RemoveFromCart=(value)=>{
+    return {
+        type:"REMOVE_FROM_CART",
         payload:value
     }
 }
