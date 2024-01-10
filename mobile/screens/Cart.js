@@ -1,4 +1,4 @@
-import {StyleSheet, View, ScrollView, useAnimatedValue} from 'react-native';
+import {StyleSheet, View, ScrollView, Alert} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Card from '../components/Cart/Card';
 import Info from '../components/Cart/Info';
@@ -17,6 +17,7 @@ import {useIsFocused} from '@react-navigation/native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux'
 import { RemoveFromCart } from '../store/actions/user/action';
+import { useStripe } from '@stripe/stripe-react-native'; 
 
 const CARTITEMS_QUERY = gql`
   query getCartItems($id: ID!) {
@@ -59,7 +60,7 @@ const REMOVEFROMCART = gql`
     }
   }
 `;
-
+const API_URL=`http://192.168.1.12:4000`
 export default function Cart() {
   const navigation = useNavigation();
   const dispatch=useDispatch();
@@ -68,6 +69,71 @@ export default function Cart() {
   const {loading, error, data, refetch} = useQuery(CARTITEMS_QUERY, {
     variables: {id: id},
   });
+  const { initPaymentSheet, presentPaymentSheet } = useStripe();
+  const [PaymentLoading, setPaymentLoading] = useState(false);
+  let price = 0;
+  const [TotalPrice,setTotalPrice]=useState(0);
+
+
+  const fetchPaymentSheetParams = async () => {
+    const response = await fetch(`${API_URL}/payment-sheet`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body:JSON.stringify({price:TotalPrice+1250})
+    });
+    const { paymentIntent, ephemeralKey, customer} = await response.json();
+
+    return {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+    };
+  };
+
+  const initializePaymentSheet = async () => {
+    const {
+      paymentIntent,
+      ephemeralKey,
+      customer,
+      publishableKey,
+    } = await fetchPaymentSheetParams();
+
+    const { error } = await initPaymentSheet({
+      merchantDisplayName: "Nike, Inc.",
+      customerId: customer,
+      customerEphemeralKeySecret: ephemeralKey,
+      paymentIntentClientSecret: paymentIntent,
+      // Set `allowsDelayedPaymentMethods` to true if your business can handle payment
+      //methods that complete payment after a delay, like SEPA Debit and Sofort.
+      allowsDelayedPaymentMethods: true,
+      defaultBillingDetails: {
+        name: 'Nike Stores',
+      }
+    });
+    if (!error) {
+      setPaymentLoading(true);
+    }
+  };
+
+  const openPaymentSheet = async () => {
+    const { error } = await presentPaymentSheet();
+
+    if (error) {
+      Alert.alert(`Error code: ${error.code}`, error.message);
+    } else {
+      navigation.navigate('OrderConfirmed');
+    }
+  };
+
+  useEffect(() => {
+
+    if(TotalPrice===0)
+    return;
+
+    initializePaymentSheet();
+  }, [TotalPrice]);
 
   const [changecountInCart, {loading: mutationLoading, data: mutationdata}] =
     useMutation(CHANGECOUNTCART);
@@ -90,6 +156,14 @@ export default function Cart() {
     }
   }, [isFocused, data]);
 
+  useEffect(()=>{
+    const totalPrice = cartItems.forEach(value => {
+      const numberPrice = toNumber(getPrice(value.shoe.price));
+      price += numberPrice * value.count;
+    });
+    setTotalPrice(price);
+  },[cartItems])
+
   if (loading) {
     return (
       <View style={styles.loading}>
@@ -100,11 +174,6 @@ export default function Cart() {
 
   if (cartItems.length === 0) return <Empty></Empty>;
 
-  let price = 0;
-  const totalPrice = cartItems.forEach(value => {
-    const numberPrice = toNumber(getPrice(value.shoe.price));
-    price += numberPrice * value.count;
-  });
 
   const changeItemsHandler = async (shoeId, value) => {
     try {
@@ -172,16 +241,14 @@ export default function Cart() {
             data={val.shoe}></Card>
         ))}
       </ScrollView>
-      <Info left="Subtotal" right={formatToPrice(price)}></Info>
+      <Info left="Subtotal" right={formatToPrice(TotalPrice)}></Info>
       <Info left="Delivery" right={formatToPrice(1250)}></Info>
       <Info
         isDark={true}
         left="Estimated Total"
-        right={formatToPrice(price + 1250)}></Info>
+        right={formatToPrice(TotalPrice + 1250)}></Info>
       <Button
-        onPress={() => {
-          navigation.navigate('OrderConfirmed');
-        }}
+        onPress={openPaymentSheet}
         title="Checkout"></Button>
     </View>
   );

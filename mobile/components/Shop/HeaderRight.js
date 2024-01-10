@@ -18,7 +18,7 @@ export default function HeaderRight() {
        </Ripple>
        <Ripple onPress={()=>{navigation.navigate("Cart")}}>
         <View style={styles.button}>
-        <Badge size={16} style={styles.badge}>{itemsInCart.length}</Badge>
+        {itemsInCart.length>0&&<Badge size={16} style={styles.badge}>{itemsInCart.length}</Badge>}
           <Icon size={26} color="black" name="shopping-bag" />
         </View>
        </Ripple>

@@ -1,8 +1,15 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet,Pressable} from 'react-native'
 import React from 'react'
 import Icon from 'react-native-vector-icons/AntDesign';
+import { useNavigation } from '@react-navigation/native';
 
 export default function OrderConfirmed() {
+
+    const navigation=useNavigation();
+    const Navigateback=()=>{
+        navigation.goBack();
+    }
+
   return (
     <View style={styles.screen}>
         <View style={styles.box}>
@@ -11,9 +18,9 @@ export default function OrderConfirmed() {
         <View style={{width:'85%'}}>
         <Text style={styles.smtext}>Your Order was Placed Successfully.It is Now Very Easy To Reach The Best Quality Among All The Products On The Internet</Text>
         </View>
-        <View style={styles.btncontainer}>
+        <Pressable onPress={Navigateback}  style={styles.btncontainer}>
          <Text style={{color:'white',fontWeight:'bold'}}>ORDER MORE</Text>
-        </View>
+        </Pressable>
         </View>
     </View>
   )
