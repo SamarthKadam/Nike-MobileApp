@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   },
   cartItems: {
     type: [{shoe:{ type: mongoose.Schema.Types.ObjectId, ref: "Shoe"},count:{type:Number,default:1},size:{type:Number}}],
-  },
+  }
 });
 
 userSchema.pre("save", async function (next) {
