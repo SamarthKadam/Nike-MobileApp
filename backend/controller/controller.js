@@ -1,4 +1,7 @@
-const stripe = require('stripe')('sk_test_51OX1GUSCbdDR2hHNsBPlJkEV6YKc50NTg8ijSMa8TWhzl70khlhVMHFYu1Id3VEKYv3BhYbeFS2XK4eJDH3URTTD00MaksKEtj');
+const dotenv=require('dotenv')
+const path=require('path')
+dotenv.config({path:path.join(__dirname,'../config.env')});
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const Shoe=require('../models/shoeModel');
 exports.makepayments=async (req, res) => {
     const customer = await stripe.customers.create();
@@ -22,7 +25,7 @@ exports.makepayments=async (req, res) => {
       paymentIntent: paymentIntent.client_secret,
       ephemeralKey: ephemeralKey.secret,
       customer: customer.id,
-      publishableKey: 'pk_test_51OX1GUSCbdDR2hHNUtJOH4ZnvAovfSZ2zQcssKY81dEX5beDqcR5dTdxLNBFcR0y1CD6JcojnnNl8Jo4kFt4ZwJL00sOejVhCK'
+      publishableKey:process.env.STRIPE_PUBLIC_KEY
     });
   }
 
