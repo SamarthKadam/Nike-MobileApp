@@ -3,8 +3,12 @@ import React from 'react'
 import ShoeCard from './ShoeCard'
 import { data } from '../../dummydata/bestseller'
 import Button from './Button'
+import { useNavigation } from '@react-navigation/native';
+// BestSeller
 
 export default function Library() {
+
+  const navigation=useNavigation();
   return (
     <View>
       <View style={styles.container}>
@@ -18,7 +22,7 @@ export default function Library() {
         <ShoeCard value={data[3]}></ShoeCard>
       </View>
       <View style={styles.btnContainer}>
-        <Button title="View All" style={styles.btn1} onPress={() => {}} ></Button>
+        <Button title="View All" style={styles.btn1} onPress={() => {navigation.navigate('BestSeller')}} ></Button>
       </View>
     </View>
   )

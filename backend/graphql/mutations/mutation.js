@@ -38,9 +38,10 @@ const mutation = new GraphQLObjectType({
         password: { type: GraphQLString },
       },
       async resolve(parentValue, { email, password }) {
+
         const user = await User.findOne({ email }).select("+password");
         if (!user || !(await user.correctPassword(user.password, password))) {
-          throw new Error("User No Longer Exist");
+          throw new Error("Incorrect Email or Password");
         }
         const token = signToken(user._id);
         return { id: user._id, token, name: user.name };

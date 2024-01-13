@@ -8,6 +8,7 @@ export default function Search() {
   const [text, setText] = useState('');
   const [Results,setResults]=useState([]);
   const [loading,setLoading]=useState(false);
+  const [isEmtpy,setIsEmpty]=useState(false);
   const navigation=useNavigation();
 
   const handleInputChange=(value)=>{
@@ -17,10 +18,14 @@ export default function Search() {
   const searchHandler=async()=>{
     try{
       setLoading(true)
-      const response=await fetch(`http://192.168.135.202:4000/search/${text}`)
+      const response=await fetch(`http://192.168.1.12:4000/search/${text}`)
       const json=await response.json();
       setLoading(false);
       setResults(json.shoes);
+      if(json.shoes.length===0)
+      setIsEmpty(true)
+      else
+      setIsEmpty(false);
     }catch(err){
       console.log(err);
     }
@@ -42,7 +47,7 @@ export default function Search() {
         {loading&&( <View style={styles.loading}>
         <ActivityIndicator color="black" size="large" />
       </View>)}
-        <View style={styles.productScreen}>
+       {!loading&&Results.length>0&&(<View style={styles.productScreen}>
         <FlatList
         data={Results}
         key={'#'}
@@ -52,7 +57,12 @@ export default function Search() {
         renderItem={({index, item}) => (
           <Card id={item._id} name={item.name} brand={item.brand} price={item.price} gallery={item.gallery[0]} />
         )}></FlatList>
-        </View>
+        </View>)}
+        {
+          !loading&&isEmtpy&&(<View style={styles.emptyresults}>
+            <Text style={{color:'black',fontWeight:'300',fontSize:16}}>No Items Found!</Text>
+          </View>)
+        }
     </View>
   );
 }
@@ -79,5 +89,10 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  emptyresults:{
+    flex:1,
+    justifyContent:'center',
+    alignItems:'center'
   }
 });

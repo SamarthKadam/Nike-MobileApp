@@ -82,5 +82,33 @@ export const data=[
         ],
         price: "1,332",
         sizes: [6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "id":"6581be9844d439dab8a2fe2e",
+        "brand": "Nike",
+        "name": "Revolution 6 Running Shoes For Men",
+        "description": "The Revolution 6 Running Shoes for Men offer superior comfort and performance. These sleek and stylish shoes feature advanced cushioning for a smooth stride, making them the perfect choice for your runs.",
+        "gallery": [
+          "https://i.ibb.co/fHM48R4/nike1.png",
+          "https://i.ibb.co/yPYxcvM/nike2.png",
+          "https://i.ibb.co/wgKrwLZ/nike3.png",
+          "https://i.ibb.co/3zVxvLK/nike4.png"
+        ],
+        "price": "3,685",
+        "sizes": [6, 7, 8, 9, 10, 11, 12]
+      },
+      {
+        "id":"6581bea544d439dab8a2fe38",
+        "brand": "Puma",
+        "name": "RS-X Efekt Turbo Sneakers For Men",
+        "description": "The Puma RS-X Efekt Turbo Sneakers for Men offer a stylish design with Puma's RS cushioning for exceptional comfort and support. Perfect for a fashionable and comfortable look.",
+        "gallery": [
+          "https://i.ibb.co/2YjmZnS/puma1.png",
+          "https://i.ibb.co/xsPnCKr/puma2.png",
+          "https://i.ibb.co/7NXvLDM/puma3.png",
+          "https://i.ibb.co/1J3N6BP/puma4.png"
+        ],
+        "price": "11,999",
+        "sizes": [6, 7, 8, 9, 10, 11, 12]
       }
 ]

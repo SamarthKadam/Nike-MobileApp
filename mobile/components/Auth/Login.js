@@ -45,7 +45,7 @@ export default function Login() {
     };
 
     const onChangePassword=(newPswd)=>{
-        setPassword(newPswd)
+        setPassword(newPswd);
     }
 
     const [loginUserMutation,{loading,data}] = useMutation(LOGIN_USER_MUTATION);

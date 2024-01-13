@@ -39,7 +39,7 @@ const RootQuery = new GraphQLObjectType({
       {
         return User.findById(id).populate('favourites').populate('cartItems.shoe');
       }
-    },
+    }
   })
 });
 

@@ -28,7 +28,6 @@ exports.makepayments=async (req, res) => {
 
   exports.getProducts=async(req,res)=>{
 
-    console.log(typeof req.params.id);
     const keyword=req.params.id?{$or:[{name:{$regex:req.params.id,$options:"i"}},{brand:{$regex:req.params.id,$options:"i"}}]}:{};
     const shoes=await Shoe.find(keyword);
 

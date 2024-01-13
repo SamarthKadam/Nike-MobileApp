@@ -1,5 +1,4 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import Orders from '../screens/Orders';
 import Favourites from '../screens/Favourites';
 import Inbox from '../screens/Inbox';
 import Settings from '../screens/Settings';
@@ -8,6 +7,7 @@ import CustomDrawerContent from '../components/Drawer/CustomDrawerContent';
 import HeaderRightShop from '../components/Shop/HeaderRight';
 import HeaderRightFavourite from '../components/Favourites/HeaderRight';
 import Shop from '../screens/Shop';
+import BestSeller from '../screens/BestSeller';
 const Drawer = createDrawerNavigator();
 export default function HomeNavigator() {
   return (
@@ -19,7 +19,7 @@ export default function HomeNavigator() {
         options={{headerRight: () => <HeaderRightShop></HeaderRightShop>}}
         component={Shop}
       />
-      <Drawer.Screen name="Orders" component={Orders} />
+      {/* <Drawer.Screen name="BestSeller" component={BestSeller} /> */}
       <Drawer.Screen
         name="Favourite"
         options={{

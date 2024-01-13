@@ -49,7 +49,7 @@ const CustomDrawerContent = ({navigation}) => {
           style={styles.drawerItemStyle}
           focused={activeItem===0}
         />
-        <DrawerItem
+        {/* <DrawerItem
           label="Orders"
           icon={({color, size}) => (
             <Icon2 name="shopping-outline" size={22} color={color} />
@@ -63,7 +63,7 @@ const CustomDrawerContent = ({navigation}) => {
           labelStyle={[styles.labelStyle,activeItem===0&&styles.boldText]}
           style={styles.drawerItemStyle}
           focused={activeItem===1}
-        />
+        /> */}
         <DrawerItem
           label="Favourite"
           icon={({color, size}) => (
