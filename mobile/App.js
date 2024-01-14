@@ -1,11 +1,12 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {AppRegistry, StyleSheet} from 'react-native';
 import AppNavigator from './navigation/AppNavigator';
 import { PaperProvider } from 'react-native-paper';
 import { Provider } from "react-redux";
 import { store } from './store/store';
 import { ApolloClient, InMemoryCache,ApolloProvider} from '@apollo/client';
 import { StripeProvider } from '@stripe/stripe-react-native';
+import { Appearance } from 'react-native';
 
 const client = new ApolloClient({
   uri: `http://192.168.1.6:4000/graphql`,
@@ -13,7 +14,7 @@ const client = new ApolloClient({
 });
 
 function App() {
-
+  Appearance.setColorScheme('light');
   return (
     <ApolloProvider client={client}>
     <Provider store={store}>

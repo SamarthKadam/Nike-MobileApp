@@ -6,6 +6,7 @@ import Icon1 from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon3 from 'react-native-vector-icons/AntDesign';
 import Icon4 from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/Feather';
 import { useState } from 'react';
 import { useSelector } from 'react-redux'
 const ViewPortHeight = Dimensions.get('window').height;
@@ -49,13 +50,13 @@ const CustomDrawerContent = ({navigation}) => {
           style={styles.drawerItemStyle}
           focused={activeItem===0}
         />
-        {/* <DrawerItem
+        <DrawerItem
           label="Orders"
           icon={({color, size}) => (
-            <Icon2 name="shopping-outline" size={22} color={color} />
+            <Icon name="shopping-bag" size={22} color={color} />
           )}
           onPress={() => {
-            navigation.navigate('Orders')
+            navigation.navigate('Cart')
             setActiveItem(1);
           }}
           activeBackgroundColor='#D4D4D4'
@@ -63,7 +64,7 @@ const CustomDrawerContent = ({navigation}) => {
           labelStyle={[styles.labelStyle,activeItem===0&&styles.boldText]}
           style={styles.drawerItemStyle}
           focused={activeItem===1}
-        /> */}
+        />
         <DrawerItem
           label="Favourite"
           icon={({color, size}) => (

@@ -21,6 +21,7 @@ console.log('Error connecting to Mongo Atlas:', error)
 );
 
 app.use(bodyParser.json());
+
 app.use('/',router)
 app.use('/graphql',expressGraphQL({
     schema,
