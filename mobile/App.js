@@ -8,11 +8,12 @@ import { ApolloClient, InMemoryCache,ApolloProvider} from '@apollo/client';
 import { StripeProvider } from '@stripe/stripe-react-native';
 
 const client = new ApolloClient({
-  uri: 'http://192.168.1.12:4000/graphql',
+  uri: `http://192.168.1.6:4000/graphql`,
   cache: new InMemoryCache(),
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
     <Provider store={store}>

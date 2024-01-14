@@ -18,7 +18,7 @@ export default function Search() {
   const searchHandler=async()=>{
     try{
       setLoading(true)
-      const response=await fetch(`http://192.168.1.12:4000/search/${text}`)
+      const response=await fetch(`http://192.168.1.6:4000/search/${text}`)
       const json=await response.json();
       setLoading(false);
       setResults(json.shoes);
