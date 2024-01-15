@@ -117,11 +117,10 @@ Introducing an application that showcases the functionalities of an e-commerce a
    - `npm start && npm run android` 
 6. The app is now running
 
-
-
+## APK Size:31mb
 
 ## Need help?
 
-Feel free to contact me on [Twitter](https://twitter.com/Samarth69908166) or [LinkedIn](https://www.linkedin.com/in/samarth-kadam-119a25209/), know more about me at [samarth.co](https://samarthkadam.vercel.app/)
+Feel free to contact me on [Twitter](https://twitter.com/Samarth69908166) or [LinkedIn](https://www.linkedin.com/in/samarth-kadam-119a25209/), know more about me at [samarthkadam.vercel.app](https://samarthkadam.vercel.app/)
 
 [![Twitter](https://img.shields.io/badge/Twitter-follow-blue.svg?logo=twitter&logoColor=white)](https://twitter.com/Samarth69908166)
