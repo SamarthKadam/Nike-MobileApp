@@ -14,11 +14,6 @@ export default function HeaderRight({onEditPress,isEditing}) {
          {isEditing&&<Check size={26} color="black" name="check" />}
         </View>
       </Pressable>
-      <Pressable  android_ripple={{color:'rgba(0, 0, 0, 0.2)'}}>
-        <View style={styles.button}>
-          <Icon size={26} color="black" name="shopping-bag" />
-        </View>
-      </Pressable>
     </View>
   );
 }

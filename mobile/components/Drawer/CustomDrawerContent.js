@@ -51,7 +51,7 @@ const CustomDrawerContent = ({navigation}) => {
           focused={activeItem===0}
         />
         <DrawerItem
-          label="Orders"
+          label="Cart"
           icon={({color, size}) => (
             <Icon name="shopping-bag" size={22} color={color} />
           )}

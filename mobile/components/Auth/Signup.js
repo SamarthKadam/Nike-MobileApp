@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { InitializeUser } from '../../store/actions/user/action';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { KeyboardAvoidingView } from 'react-native';
 
 
 const CREATE_USER_MUTATION = gql`
@@ -72,6 +73,7 @@ export default function Login() {
         navigation.replace('HOME');
 
       } catch (error) {
+        Alert.alert(`${error}!`);
         console.error('Error:', error);
       }
     };

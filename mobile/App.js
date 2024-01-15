@@ -9,7 +9,7 @@ import { StripeProvider } from '@stripe/stripe-react-native';
 import { Appearance } from 'react-native';
 
 const client = new ApolloClient({
-  uri: `http://192.168.1.6:4000/graphql`,
+  uri: `https://nike-mobile-backend.onrender.com/graphql`,
   cache: new InMemoryCache(),
 });
 

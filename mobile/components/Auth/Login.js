@@ -60,6 +60,7 @@ export default function Login() {
         navigation.replace('HOME');
 
       } catch (error) {
+        Alert.alert(`${error}!`);
         console.error('Error:', error);
       }
     };

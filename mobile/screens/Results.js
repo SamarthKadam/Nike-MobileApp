@@ -59,6 +59,7 @@ export default function Results({navigation}) {
         key={'#'}
         keyExtractor={(item, index) => '#' + index}
         numColumns={2}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatlist}
         renderItem={({index, item}) => (
           <Card id={item.id} name={item.name} brand={item.brand} price={item.price} gallery={item.gallery[0]} />

@@ -18,7 +18,7 @@ export default function Search() {
   const searchHandler=async()=>{
     try{
       setLoading(true)
-      const response=await fetch(`http://192.168.1.6:4000/search/${text}`)
+      const response=await fetch(`https://nike-mobile-backend.onrender.com/search/${text}`)
       const json=await response.json();
       setLoading(false);
       setResults(json.shoes);
@@ -53,6 +53,7 @@ export default function Search() {
         key={'#'}
         keyExtractor={(item, index) => '#' + index}
         numColumns={2}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.flatlist}
         renderItem={({index, item}) => (
           <Card id={item._id} name={item.name} brand={item.brand} price={item.price} gallery={item.gallery[0]} />

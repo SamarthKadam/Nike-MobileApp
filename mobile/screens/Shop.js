@@ -55,7 +55,7 @@ export default function Shop() {
 
 
   return (
-    <ScrollView overScrollMode={'never'} style={style.screen}>
+    <ScrollView showsVerticalScrollIndicator={false} overScrollMode={'never'} style={style.screen}>
       <Title title="This Week's Highlights"></Title>
       <ProductSlider></ProductSlider>
       <View style={style.showCaseContainer}>

@@ -60,7 +60,7 @@ const REMOVEFROMCART = gql`
     }
   }
 `;
-const API_URL=`http://192.168.1.6:4000`
+const API_URL=`https://nike-mobile-backend.onrender.com`
 export default function Cart() {
   const navigation = useNavigation();
   const dispatch=useDispatch();

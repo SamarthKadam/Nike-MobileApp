@@ -41,7 +41,7 @@ export default function Description({setLoginOpen,setSignupOpen}) {
       if(value!==null)
       handleUser(JSON.parse(value));
       else if(value===null)
-      setIsLoggedIn(false)
+      handleUser('somethingrandom');
     });
   },[])
   

@@ -120,7 +120,7 @@ export default function Overview({navigation}) {
   }
 
   return (
-    <ScrollView style={styles.screen}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.screen}>
       <Gallery images={data.shoe.gallery}></Gallery>
       <View style={styles.btmContainer}>
         <MdText title={`${data.shoe.brand} Shoes`}></MdText>

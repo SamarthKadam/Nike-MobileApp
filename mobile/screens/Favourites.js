@@ -110,6 +110,7 @@ export default function Favourites({navigation}) {
       key={'#'}
       keyExtractor={(item,index)=>"#"+index}
       numColumns={2}
+      showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.flatlist}
       renderItem={({ index, item }) => (
         <Card id={item.id} undo={UndoHandler} price={item.price} isEditing={isEditing} name={item.name} brand={item.brand} gallery={item.gallery[0]} />
