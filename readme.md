@@ -117,7 +117,8 @@ Introducing an application that showcases the functionalities of an e-commerce a
    - `npm start && npm run android` 
 6. The app is now running
 
-## APK Size:31mb
+## Download APK:
+https://drive.google.com/file/d/1wrZnyiRLVtQ2zMdogJFEDLdXDPKquS48/view?usp=sharing (APK Size: 31 MB)
 
 ## Need help?
 
