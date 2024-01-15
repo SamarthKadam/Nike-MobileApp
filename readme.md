@@ -50,7 +50,7 @@ Introducing an application that showcases the functionalities of an e-commerce a
    - View all the items in your cart.
    - Increase the quantity of items in your cart.
    - Make payments using credit card
-   - Powered by stripe
+   - Powered by Stripe
 
    - <img src="./images/CartPayments.png">
 
@@ -113,7 +113,7 @@ Introducing an application that showcases the functionalities of an e-commerce a
    -  `BACKEND_URL`
 4. Start the backend server using the command
    - `node start`
-5. Start the app and run
+5. Start the app using the command
    - `npm start && npm run android` 
 6. The app is now running
 
