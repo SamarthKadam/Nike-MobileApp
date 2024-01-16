@@ -23,7 +23,7 @@ Introducing an application that showcases the functionalities of an e-commerce a
 2. Home page
    - Showcasing the best-selling shoes
    - Navigate to various screens through Drawer Navigator
-   - Shop on Basis of Brands
+   - Shop on the Basis of Brands
    
    -  <img  src="./images/Shop.png"> 
 
@@ -37,11 +37,12 @@ Introducing an application that showcases the functionalities of an e-commerce a
 4. Overview Page
    - Gain an overview of any product, including images, price, and name.
    - You can add the product to your favorites or cart
+   - Changes made are persisted in the database
 
    - <img src="./images/Product.png">
 
 5. Favourites Page
-   - View all your favorited products.
+   - View all your favorite products.
    - You have the option to undo favorites
 
    - <img src="./images/Favourites.png">
@@ -49,7 +50,7 @@ Introducing an application that showcases the functionalities of an e-commerce a
 6. Cart/Payments Page
    - View all the items in your cart.
    - Increase the quantity of items in your cart.
-   - Make payments using credit card
+   - Make payments using a credit card
    - Powered by Stripe
 
    - <img src="./images/CartPayments.png">
