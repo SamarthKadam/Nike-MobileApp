@@ -230,7 +230,7 @@ export default function Cart() {
 
   return (
     <View style={styles.screen}>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         {cartItems.map((val, index) => (
           <Card
             onIncrement={onIncrement}

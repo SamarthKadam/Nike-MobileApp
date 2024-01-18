@@ -14,6 +14,7 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   Appearance.setColorScheme('light');
   return (
     <ApolloProvider client={client}>
